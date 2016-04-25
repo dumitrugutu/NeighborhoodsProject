@@ -1,28 +1,30 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Chicago Neighborhoods
+Goal: Provide a site where community members can view area events and local community leaders can post events.  Begin with a trial version that serves only Chicago Lawn.
 
-Things you may want to cover:
+Ruby version: 2.2.3
+Rails version: 4.1.13
+Database will be postgres and tests will be rspec.  The project's initial version will be deployed on heroku.  We are also working on incorporating information and events from the City of Chicago data portal API.
 
-* Ruby version
+Groups of Users
+- User: anyone who uses the site; could be a neighbor, someone who works for a nonprofit in the area etc.
+- Group representative: someone who would post events for a group they work for, such as a nonprofit employee
+-  Site admin refers to a project team member who would approve events that are posted
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+User stories
+MVP
+- As a user, I want to be able to view a list of upcoming events in the neighborhood
+- As a user, I want to view on a map icons representing upcoming events
+- As a user, I want to click on the map icons and learn more about upcoming events
+- As a group representative, I want to post events for my group
+- As a group representative, I want to associate date and time with events
+- As a site admin, I want to be able to approve events that are posted
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Stretch
+- As a group representative, I want to register the group with which I am associated (initally, a project team member will register the groups)
+- As a group representative, I want to be able to click "reset my password" if I have forgotten my password
+- As a site admin, I want to be able to email invites to organizations to register and setup their org and ID and password
+- As a site admin, I want to be able to register organizations on their behalf
+- As a site admin, I want to be able to reset passwords for organizations they have already registered
