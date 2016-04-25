@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group_rep_id: 
+  name: MyString
+  organizer_contact_info: MyString
+  event_time: 2016-04-25 12:31:54
+  is_free: false
+
+two:
+  group_rep_id: 
+  name: MyString
+  organizer_contact_info: MyString
+  event_time: 2016-04-25 12:31:54
+  is_free: false
