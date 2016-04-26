@@ -6,7 +6,7 @@ class CreateGroups < ActiveRecord::Migration
       t.string :website
       t.string :contact_info
 
-      t.timestamps
+      t.timestamps null: false
     end
   end
 end
