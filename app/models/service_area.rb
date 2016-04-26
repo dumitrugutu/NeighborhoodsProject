@@ -1,4 +1,4 @@
 class ServiceArea < ActiveRecord::Base
-  belongs_to :groups
-  belongs_to :neighborhoods
+  belongs_to :group
+  belongs_to :neighborhood
 end
