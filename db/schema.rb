@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425173154) do
+ActiveRecord::Schema.define(version: 20160426172041) do
 
   create_table "events", force: true do |t|
     t.integer  "group_rep_id"
@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20160425173154) do
     t.string   "organizer_contact_info"
     t.datetime "event_time"
     t.boolean  "is_free",                default: true
+    t.string   "location"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
   end
@@ -29,29 +30,33 @@ ActiveRecord::Schema.define(version: 20160425173154) do
     t.integer  "group_id"
     t.string   "name"
     t.string   "email"
-    t.string   "string"
-    t.string   "password"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "password_digest"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   add_index "group_reps", ["group_id"], name: "index_group_reps_on_group_id"
 
   create_table "groups", force: true do |t|
-    t.integer  "neighborhood_id"
     t.string   "name"
     t.string   "website"
     t.string   "contact_info"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.string   "address"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
-
-  add_index "groups", ["neighborhood_id"], name: "index_groups_on_neighborhood_id"
 
   create_table "neighborhoods", force: true do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "service_areas", force: true do |t|
+    t.integer  "neighborhood_id"
+    t.integer  "group_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
 end

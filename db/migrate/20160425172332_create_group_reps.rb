@@ -4,8 +4,7 @@ class CreateGroupReps < ActiveRecord::Migration
       t.references :group, index: true, foreign_key: true
       t.string :name
       t.string :email
-      t.string :string
-      t.string :password
+      t.string :password_digest
 
       t.timestamps null: false
     end

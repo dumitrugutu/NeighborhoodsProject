@@ -1,3 +1,4 @@
 class Neighborhood < ActiveRecord::Base
-  has_and_belongs_to_many :groups, foreign_key: :neighborhood_id
+  has_many :service_areas
+  has_many :groups, through: :service_areas
 end

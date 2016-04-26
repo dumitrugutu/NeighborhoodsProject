@@ -6,6 +6,7 @@ class CreateEvents < ActiveRecord::Migration
       t.string :organizer_contact_info
       t.datetime :event_time
       t.boolean :is_free, default: true
+      t.string :location
 
       t.timestamps null: false
     end

@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
+
+  root 'neighborhoods#index'
+
+  post 'neighborhoods/search' => 'neighborhoods#search', as: 'search_neighborhoods'
+  get 'neighborhoods/:id' => 'neighborhoods#show', as: 'neighborhood'
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
