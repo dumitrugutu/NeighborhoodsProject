@@ -1,3 +1,3 @@
 class Group < ActiveRecord::Base
-  belongs_to: neighborhood
+  has_many :neighborhoods, foreign_key: :group_id
 end
