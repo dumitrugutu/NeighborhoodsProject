@@ -7,7 +7,7 @@
   <div class="neighborhood_show">
     <h3> <%= @neighborhood.name %> </h3>
     <ul>
-      <% @groups.each do |group| %>
+      <% @neighborhood.groups.each do |group| %>
         <li class="group"> <%= group.name %> </li>
       <% end %>
     </ul>
