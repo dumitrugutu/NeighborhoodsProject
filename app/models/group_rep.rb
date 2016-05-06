@@ -9,5 +9,4 @@ devise :database_authenticatable, :registerable, :recoverable, :rememberable, :t
   validates_presence_of :name, :email, :password_digest, :group_id
   validates_format_of :email, :with => /@/
 
-  has_secure_password
 end
