@@ -3,13 +3,8 @@ class NeighborhoodsController < ApplicationController
   end
 
   def search
-    p "QUERY BELOW_______________"
-    p params[:query]
     @q = "%#{params[:query]}%"
-    p "neighborhood below __________"
-    p @neighborhood = Neighborhood.where("name LIKE ?", @q)
-    p "@neighborhood.groups below ____________________"
-    p @neighborhood.groups
+    @neighborhood = Neighborhood.where("name LIKE ?", @q).take
     render 'show'
   end
 
