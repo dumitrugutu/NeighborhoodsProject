@@ -4,7 +4,7 @@ RSpec.describe GroupRep, type: :model do
   context 'Validations' do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:email) }
-    it { should validate_presence_of(:password_digest) }
+    it { should validate_presence_of(:encrypted_password) }
     it { should validate_presence_of(:group_id) }
 
     it { should allow_value('email@address.foo').for(:email) }

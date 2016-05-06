@@ -6,7 +6,7 @@ devise :database_authenticatable, :registerable, :recoverable, :rememberable, :t
   belongs_to :group
   has_many :events, foreign_key: :group_rep_id
 
-  validates_presence_of :name, :email, :password_digest, :group_id
+  validates_presence_of :name, :email, :encrypted_password, :group_id
   validates_format_of :email, :with => /@/
 
 end
