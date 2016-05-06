@@ -2,7 +2,9 @@ class DeviseCreateGroupReps < ActiveRecord::Migration
   def change
     create_table :group_reps do |t|
       ## Database authenticatable
+      t.references :group, index: true, foreign_key: true
       t.boolean :admin
+      t.string :name,                null: false, default: ""
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 

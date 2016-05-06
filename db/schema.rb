@@ -27,7 +27,9 @@ ActiveRecord::Schema.define(version: 20160506141521) do
   add_index "events", ["group_rep_id"], name: "index_events_on_group_rep_id"
 
   create_table "group_reps", force: true do |t|
+    t.integer  "group_id"
     t.boolean  "admin"
+    t.string   "name",                   default: "", null: false
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -43,6 +45,7 @@ ActiveRecord::Schema.define(version: 20160506141521) do
   end
 
   add_index "group_reps", ["email"], name: "index_group_reps_on_email", unique: true
+  add_index "group_reps", ["group_id"], name: "index_group_reps_on_group_id"
   add_index "group_reps", ["reset_password_token"], name: "index_group_reps_on_reset_password_token", unique: true
 
   create_table "groups", force: true do |t|
