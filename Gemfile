@@ -62,3 +62,5 @@ gem 'bcrypt', '~> 3.1.7'
 # gem 'debugger', group: [:development, :test]
 
 gem 'faker'
+gem 'devise'
+gem 'rails_admin'
