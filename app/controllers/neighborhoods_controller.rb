@@ -1,5 +1,8 @@
 class NeighborhoodsController < ApplicationController
   def index
+    if current_group_rep
+      redirect_to events_path
+    end
   end
 
   def search
