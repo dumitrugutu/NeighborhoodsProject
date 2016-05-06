@@ -2,6 +2,7 @@ class DeviseCreateGroupReps < ActiveRecord::Migration
   def change
     create_table :group_reps do |t|
       ## Database authenticatable
+      t.boolean :admin
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
