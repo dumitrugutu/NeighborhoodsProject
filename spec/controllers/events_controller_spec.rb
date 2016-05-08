@@ -80,6 +80,7 @@ describe EventsController do
       @event_params = FactoryGirl.attributes_for(:event)
       @event = instance_double('Event')
     end
+    
     it 'calls the model method to find the specified event' do
       expect(Event).to receive(:find).and_return(@event)
       allow(@event).to receive(:update!)
@@ -104,6 +105,7 @@ describe EventsController do
       put :update, :group_rep_id => '1', :id => '1', :event => @event_params   # hardcode for now
       expect(flash[:notice]).to be_present
     end
+    
     it 'redirects to the events show' do
       allow(Event).to receive(:find).and_return(@event)
       allow(@event).to receive(:update!)
