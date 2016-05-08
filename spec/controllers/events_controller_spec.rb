@@ -9,7 +9,7 @@ describe EventsController do
   end
   
   describe '#show' do
-    it 'calls the model method that finds the event' do
+    it 'calls the model method that finds the specified event' do
       fake_event = double('event')
       expect(Event).to receive(:find).and_return(fake_event)
       get :show, :group_rep_id => '1', :id => '1'   # hardcode for now
@@ -44,15 +44,27 @@ describe EventsController do
     it 'gives the user a flash notice upon successful creation' do
       allow(Event).to receive(:create!).with(@event_params).and_return(@event)
       allow(@event).to receive(:name).and_return('good time')
-      post :create, :group_rep_id => '1', :event => @event_params  
+      post :create, :group_rep_id => '1', :event => @event_params  # hardcode for now
       expect(flash[:notice]).to be_present
     end
     
     it 'redirects to the events index' do
       allow(Event).to receive(:create!).with(@event_params).and_return(@event)
       allow(@event).to receive(:name).and_return('good time')
-      post :create, :group_rep_id => '1', :event => @event_params
+      post :create, :group_rep_id => '1', :event => @event_params    # hardcode for now
       expect(response).to redirect_to group_rep_events_path
+    end
+  end
+  
+  describe '#edit' do
+    it 'calls the model method that finds the specified event' do
+      expect(Event).to receive(:find)
+      get :edit, :group_rep_id => '1', :id => '1'  # hardcode for now
+    end
+    it 'renders the :edit view' do
+      allow(Event).to receive(:find)
+      get :edit, :group_rep_id => '1', :id => '1'  # hardcode for now
+      expect(response).to render_template :edit
     end
   end
 end

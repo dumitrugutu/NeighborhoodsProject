@@ -3,8 +3,7 @@ class EventsController < ApplicationController
   end
   
   def show
-    id = params[:id]
-    @event = Event.find(id)
+    @event = Event.find(params[:id])
   end
   
   def new
@@ -14,6 +13,10 @@ class EventsController < ApplicationController
     @event = Event.create!(event_params)
     flash[:notice] = "#{@event.name} was created successfully."
     redirect_to group_rep_events_path
+  end
+  
+  def edit
+    @event = Event.find(params[:id])
   end
   
   private
