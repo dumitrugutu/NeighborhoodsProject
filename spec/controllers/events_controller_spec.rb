@@ -115,4 +115,44 @@ describe EventsController do
       expect(response).to redirect_to group_rep_event_path
     end
   end
+  
+  describe '#destroy' do
+    before do
+      @event = instance_double('Event')
+    end
+    
+    it 'calls the model method to find the specified event' do
+      expect(Event).to receive(:find).and_return(@event)
+      allow(@event).to receive(:destroy)
+      allow(@event).to receive(:name)
+      
+      delete :destroy, :group_rep_id => '1', :id => '1'   # hardcode for now
+    end
+    
+    it 'calls the model method to delete the event' do
+      allow(Event).to receive(:find).and_return(@event)
+      expect(@event).to receive(:destroy)
+      allow(@event).to receive(:name)
+      
+      delete :destroy, :group_rep_id => '1', :id => '1'   # hardcode for now
+    end
+    
+    it 'gives the user a flash notice that the event was successfully deleted' do
+      allow(Event).to receive(:find).and_return(@event)
+      allow(@event).to receive(:destroy)
+      allow(@event).to receive(:name)
+      
+      delete :destroy, :group_rep_id => '1', :id => '1'   # hardcode for now
+      expect(flash[:notice]).to be_present
+    end
+    
+    it 'redirects to the events index' do
+      allow(Event).to receive(:find).and_return(@event)
+      allow(@event).to receive(:destroy)
+      allow(@event).to receive(:name)
+      
+      delete :destroy, :group_rep_id => '1', :id => '1'   # hardcode for now
+      expect(response).to redirect_to group_rep_events_path
+    end
+  end
 end
