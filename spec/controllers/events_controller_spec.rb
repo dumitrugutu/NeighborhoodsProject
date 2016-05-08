@@ -61,10 +61,46 @@ describe EventsController do
       expect(Event).to receive(:find)
       get :edit, :group_rep_id => '1', :id => '1'  # hardcode for now
     end
+    
     it 'renders the :edit view' do
       allow(Event).to receive(:find)
       get :edit, :group_rep_id => '1', :id => '1'  # hardcode for now
       expect(response).to render_template :edit
+    end
+  end
+  
+  describe '#update' do
+    before do
+      @event_params = FactoryGirl.attributes_for(:event)
+      @event = instance_double('Event')
+    end
+    it 'calls the model method to find the specified event' do
+      expect(Event).to receive(:find).and_return(@event)
+      allow(@event).to receive(:update!)
+      allow(@event).to receive(:name)
+      put :update, :group_rep_id => '1', :id => '1', :event => @event_params   # hardcode for now
+    end
+    
+    it 'calls the model method to update the events attributes' do
+      allow(Event).to receive(:find).and_return(@event)
+      expect(@event).to receive(:update!)
+      allow(@event).to receive(:name)
+      put :update, :group_rep_id => '1', :id => '1', :event => @event_params   # hardcode for now
+    end
+    
+    it 'gives the user a flash notice upon successful update' do
+      allow(Event).to receive(:find).and_return(@event)
+      allow(@event).to receive(:update!)
+      allow(@event).to receive(:name)
+      put :update, :group_rep_id => '1', :id => '1', :event => @event_params   # hardcode for now
+      expect(flash[:notice]).to be_present
+    end
+    it 'redirects to the events show' do
+      allow(Event).to receive(:find).and_return(@event)
+      allow(@event).to receive(:update!)
+      allow(@event).to receive(:name)
+      put :update, :group_rep_id => '1', :id => '1', :event => @event_params   # hardcode for now
+      expect(response).to redirect_to group_rep_event_path
     end
   end
 end

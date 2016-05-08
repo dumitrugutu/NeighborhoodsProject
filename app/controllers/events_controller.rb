@@ -19,6 +19,13 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
   end
   
+  def update
+    @event = Event.find(params[:id])
+    @event.update!(event_params)
+    flash[:notice] = "#{@event.name} was successfully updated."
+    redirect_to group_rep_event_path
+  end
+  
   private
   
   def event_params
