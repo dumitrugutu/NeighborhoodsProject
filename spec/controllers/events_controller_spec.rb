@@ -12,11 +12,13 @@ describe EventsController do
     it 'calls the model method that finds the specified event' do
       fake_event = double('event')
       expect(Event).to receive(:find).and_return(fake_event)
+      
       get :show, :group_rep_id => '1', :id => '1'   # hardcode for now
     end
     
     it 'renders the :show view' do
       allow(Event).to receive(:find)
+      
       get :show, :group_rep_id => '1', :id => '1'   # hardcode for now
       expect(response).to render_template :show
     end
@@ -38,12 +40,14 @@ describe EventsController do
     it 'calls the model method that creates an event in the database' do
       expect(Event).to receive(:create!).with(@event_params).and_return(@event)
       allow(@event).to receive(:name).and_return('good time')
+      
       post :create, :group_rep_id => '1', :event => @event_params    # hardcode for now
     end
     
     it 'gives the user a flash notice upon successful creation' do
       allow(Event).to receive(:create!).with(@event_params).and_return(@event)
       allow(@event).to receive(:name).and_return('good time')
+      
       post :create, :group_rep_id => '1', :event => @event_params  # hardcode for now
       expect(flash[:notice]).to be_present
     end
@@ -51,6 +55,7 @@ describe EventsController do
     it 'redirects to the events index' do
       allow(Event).to receive(:create!).with(@event_params).and_return(@event)
       allow(@event).to receive(:name).and_return('good time')
+      
       post :create, :group_rep_id => '1', :event => @event_params    # hardcode for now
       expect(response).to redirect_to group_rep_events_path
     end
@@ -64,6 +69,7 @@ describe EventsController do
     
     it 'renders the :edit view' do
       allow(Event).to receive(:find)
+      
       get :edit, :group_rep_id => '1', :id => '1'  # hardcode for now
       expect(response).to render_template :edit
     end
@@ -78,6 +84,7 @@ describe EventsController do
       expect(Event).to receive(:find).and_return(@event)
       allow(@event).to receive(:update!)
       allow(@event).to receive(:name)
+      
       put :update, :group_rep_id => '1', :id => '1', :event => @event_params   # hardcode for now
     end
     
@@ -85,6 +92,7 @@ describe EventsController do
       allow(Event).to receive(:find).and_return(@event)
       expect(@event).to receive(:update!)
       allow(@event).to receive(:name)
+      
       put :update, :group_rep_id => '1', :id => '1', :event => @event_params   # hardcode for now
     end
     
@@ -92,6 +100,7 @@ describe EventsController do
       allow(Event).to receive(:find).and_return(@event)
       allow(@event).to receive(:update!)
       allow(@event).to receive(:name)
+      
       put :update, :group_rep_id => '1', :id => '1', :event => @event_params   # hardcode for now
       expect(flash[:notice]).to be_present
     end
@@ -99,6 +108,7 @@ describe EventsController do
       allow(Event).to receive(:find).and_return(@event)
       allow(@event).to receive(:update!)
       allow(@event).to receive(:name)
+      
       put :update, :group_rep_id => '1', :id => '1', :event => @event_params   # hardcode for now
       expect(response).to redirect_to group_rep_event_path
     end
