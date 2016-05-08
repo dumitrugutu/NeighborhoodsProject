@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   #get 'neighborhoods/:id' => 'neighborhoods#show', as: 'neighborhood'
   
   resources :group_rep do
-    resources :event
+    resources :events
   end
 
   # You can have the root of your site routed with "root"
