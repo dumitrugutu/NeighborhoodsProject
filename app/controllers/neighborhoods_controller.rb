@@ -1,5 +1,12 @@
 class NeighborhoodsController < ApplicationController
   def index
+    if current_group_rep
+      redirect_to new_neighborhood_path
+    end
+  end
+
+  def new
+
   end
 
   def search

@@ -17,10 +17,13 @@ service_areas = groups.map do |group|
 end
 
 
-
 group_reps = groups.map do |group|
-  GroupRep.create([{group_id: group.id, name: Faker::Name.name, email: Faker::Internet.email, password: "kaboom"}])
+  GroupRep.create([{group_id: 1, admin: false, name: Faker::Name.name, email: Faker::Internet.email, password: "kaboom"}])
 end
+
+admins = 5.times do
+  GroupRep.create([{group_id: 1, admin: true, name: Faker::Name.name, email: Faker::Internet.email, password: "kaboom"}])
+  end
 
 # Have not yet set up organizer_contact_info
 #group_rep_id is a randomized number
