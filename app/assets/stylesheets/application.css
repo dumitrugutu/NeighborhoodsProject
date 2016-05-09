@@ -13,3 +13,15 @@
  *= require_tree .
  *= require_self
  */
+
+#site_title {
+
+}
+
+#searchbar {
+  width: 100%;
+}
+
+#home_map {
+  float: right;
+}
