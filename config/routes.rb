@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  devise_for :group_reps, :controllers => { registrations: 'registrations' }
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -9,6 +11,10 @@ Rails.application.routes.draw do
 
   post 'neighborhoods/search' => 'neighborhoods#search', as: 'search_neighborhoods'
   #get 'neighborhoods/:id' => 'neighborhoods#show', as: 'neighborhood'
+  
+  resources :group_rep do
+    resources :events
+  end
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
