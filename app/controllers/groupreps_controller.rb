@@ -11,7 +11,7 @@ class GroupRepsController < ApplicationController
   private
 
   def group_rep_params
-    params.require(:group_rep).permit(:group_id, :admin, :name, :email, :password)
+    params.require(:group_rep).permit(:group, :admin, :name, :email, :password)
   end
 
   def group_id
