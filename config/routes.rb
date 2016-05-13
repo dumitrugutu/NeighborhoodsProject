@@ -11,6 +11,10 @@ Rails.application.routes.draw do
 
   post 'neighborhoods/search' => 'neighborhoods#search', as: 'search_neighborhoods'
   #get 'neighborhoods/:id' => 'neighborhoods#show', as: 'neighborhood'
+  
+  resources :group_rep do
+    resources :events
+  end
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
