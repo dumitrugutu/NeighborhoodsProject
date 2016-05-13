@@ -4,7 +4,7 @@ class NeighborhoodsController < ApplicationController
 
   def search
     @q = "%#{params[:query]}%"
-    @neighborhoods = Neighborhood.where("name LIKE ?", @q)
+    @neighborhood = Neighborhood.where("name LIKE ?", @q).take
     render 'show'
   end
 
