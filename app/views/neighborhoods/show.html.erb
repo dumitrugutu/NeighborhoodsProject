@@ -1,22 +1,32 @@
-<div class="neighborhood_show">
-  <h3> <%= @neighborhood.name %> </h3>
-  <ul>
-    <% @neighborhood.groups.each do |group| %>
-      <li class="group"> <%= group.name %> </li>
-    <% end %>
-  </ul>
-</div>
+<div class="container-fluid">
+  <div class="row" id="masterRow">
+    
+    <!--first half of screen-->
+    <div class="col-sm-6">
+      <div class="neighborhood_show">
+        <h3> <%= @neighborhood.name %> </h3>
+        <ul>
+          <% @neighborhood.groups.each do |group| %>
+            <li class="group"> <%= group.name %> </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    
+    <!--second half of screen-->
+    <div class="col-sm-6">
+      
+    </div>
+    
+    
+    
+    
+    
+    
+  </div> <!--end of masterRow-->
+</div> <!--end of container-->
 
-  <div class="row">
-    <div class="col-sm-4">
-      <h1>first div</h1>
-    </div>
-    <div class="col-sm-4">
-      <h1>second div</h1>
-    </div>
-    <div class="col-sm-4">
-      <h1>third div</h1>
-    </div>
-  </div>
+
+  
 <!--google maps api -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9bgTM6mZMkfpii73l5lUwTHfMq8N2zos&callback=initMap" async defer></script>
