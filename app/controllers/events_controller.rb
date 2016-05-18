@@ -3,6 +3,7 @@ class EventsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
+    @events = Event.where(['group_rep_id = ?', params[:group_rep_id]])
   end
 
   def show
