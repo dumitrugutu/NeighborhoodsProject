@@ -5,16 +5,21 @@
     <div class="col-sm-6" id="firstHalf">
       <div class="neighborhood_show">
         <h3> <%= @neighborhood.name %> </h3>
-        <ul>
+
           <% @neighborhood.groups.each do |group| %>
               <% group.group_reps.each do |group_rep| %>
                   <% group_rep.events.each do |event| %>
-                    <li class="group_rep_event"> <%= event.name %> </li>
+                    <ul class="group_rep_event">
+                      <li> <%= event.name %> </li>
+                      <li> <%= event.location %> </li>
+                      <li> Is the event free? <%= event.is_free? %> </li>
+
+                    </ul>
                   <% end %>
               <% end %>
 
           <% end %>
-        </ul>
+
       </div>
 
 
