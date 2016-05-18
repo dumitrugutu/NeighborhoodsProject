@@ -11,10 +11,8 @@ groups = Group.create([{name: 'Marquette Park', website: 'www.chicagoparkdistric
 ', website: 'www.greatersouthwest.org', contact_info: '(773)436-1000', address: '2601 W. 63rd St.'}, {name: 'Southwest Organizing Project
 ', website: 'www.swopchicago.org', contact_info: '(773) 471-8208', address: '2558 W. 63rd St.'}])
 
-service_areas = groups.map do |group|
-  ServiceArea.create([{neighborhood_id: rand(1..4), group_id: group.id}
-    ])
-end
+m_service_areas = ServiceArea.create([{neighborhood_id: 3, group_id: 1}, {neighborhood_id: 3, group_id: 7}])
+
 
 
 group_reps = groups.map do |group|
@@ -27,10 +25,19 @@ admins = 5.times do
 
 # Have not yet set up organizer_contact_info
 #group_rep_id is a randomized number
-events = group_reps.map do |group_rep|
-  Event.create([{group_rep_id: rand(1..10), name: Faker::Commerce.department, organizer_contact_info: "TBA", event_time: Faker::Time.forward(28, :morning)}, is_free: true, location: Faker::Address.street_address])
-end
+# events = group_reps.map do |group_rep|
+#   Event.create([{group_rep_id: rand(1..10), name: Faker::Commerce.department, organizer_contact_info: "TBA", event_time: Faker::Time.forward(28, :morning)}, is_free: true, location: Faker::Address.street_address])
+# end
 
+
+# Marquette Park event examples below
+
+m_rep = GroupRep.create({group_id: 1, admin: false, name: "Joe M", email: "joe@yahoo.com", password: "kaboom"})
+
+m_admin = GroupRep.create({group_id: 1, admin: true, name: "Bob A", email: "bob@yahoo.com", password: "kaboom"})
+
+m_rep_event = Event.create([{group_rep_id: m_rep.id, name: "Test Marquette Rep Event", organizer_contact_info: m_rep.email, event_time: Faker::Time.forward(28, :morning)}, is_free: true, location: m_rep.group.address])
+m_admin_event = Event.create([{group_rep_id: m_admin.id, name: "Test Marquette Admin Event", organizer_contact_info: m_admin.email, event_time: Faker::Time.forward(28, :morning)}, is_free: true, location: m_admin.group.address])
 
 
 
