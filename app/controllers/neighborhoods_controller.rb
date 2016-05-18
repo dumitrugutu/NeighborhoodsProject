@@ -18,11 +18,9 @@ class NeighborhoodsController < ApplicationController
       @neighborhood = Neighborhood.where("name LIKE ?", @q).take
       render 'show'
     else
-      #render page for when there are multiple options
-
+      @neighborhoods = Neighborhood.where("name LIKE ?", @q)
+      render 'multiple'
     end
-    # @neighborhood = Neighborhood.where("name LIKE ?", @q).take
-    # render 'show'
   end
 
   def show
