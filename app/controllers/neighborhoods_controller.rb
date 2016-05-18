@@ -11,8 +11,18 @@ class NeighborhoodsController < ApplicationController
 
   def search
     @q = "%#{params[:query]}%"
-    @neighborhood = Neighborhood.where("name LIKE ?", @q).take
-    render 'show'
+    if Neighborhood.where("name LIKE ?", @q).length < 1
+      @neighborhoods = Neighborhood.all
+      render 'error'
+    elsif Neighborhood.where("name LIKE ?", @q).length == 1
+      @neighborhood = Neighborhood.where("name LIKE ?", @q).take
+      render 'show'
+    else
+      #render page for when there are multiple options
+
+    end
+    # @neighborhood = Neighborhood.where("name LIKE ?", @q).take
+    # render 'show'
   end
 
   def show
