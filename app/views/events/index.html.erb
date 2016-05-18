@@ -12,7 +12,7 @@
       </tr>
       <% @events.each do |event| %>
       <tr>
-        <td><%= event.name %></td>
+        <td><%= link_to event.name, group_rep_event_path(params[:group_rep_id], event.id) %></td>
         <td><%= event.location %></td>
         <td><%= event.event_time %></td>
       </tr>
