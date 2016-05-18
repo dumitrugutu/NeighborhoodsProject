@@ -7,16 +7,23 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  
 
-<% if current_group_rep %>
-  <%= link_to "Logout", destroy_group_rep_session_path, method: :delete %>
-<% else %>
-  <%= link_to "Login", new_group_rep_session_path %>
-<% end %>
+  <div class="container-fluid">
+    <% if current_group_rep %>
+      <%= link_to "Logout", destroy_group_rep_session_path, method: :delete %>
+    <% else %>
+      <%= link_to "Login", new_group_rep_session_path %>
+    <% end %>
+    
+    <%= link_to "Home", neighborhoods_path %>
+  </div>
 
-<%= link_to "Home", neighborhoods_path %>
 
-<%= yield %>
+  <div class="content">
+    <%= yield %>
+  </div>
+
 
 </body>
 </html>
