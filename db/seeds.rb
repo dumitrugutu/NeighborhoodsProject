@@ -36,8 +36,8 @@ m_rep = GroupRep.create({group_id: 1, admin: false, name: "Joe M", email: "joe@y
 
 m_admin = GroupRep.create({group_id: 1, admin: true, name: "Bob A", email: "bob@yahoo.com", password: "kaboom"})
 
-m_rep_event = Event.create([{group_rep_id: m_rep.id, name: "Test Marquette Rep Event", organizer_contact_info: m_rep.email, event_time: Faker::Time.forward(28, :morning)}, is_free: true, location: m_rep.group.address])
-m_admin_event = Event.create([{group_rep_id: m_admin.id, name: "Test Marquette Admin Event", organizer_contact_info: m_admin.email, event_time: Faker::Time.forward(28, :morning)}, is_free: true, location: m_admin.group.address])
+m_rep_event = Event.create([{group_rep_id: m_rep.id, name: "Test Marquette Rep Event", organizer_contact_info: m_rep.email, event_time: Faker::Time.forward(28, :morning), is_free: true, location: "6700 S. Kedzie Ave."}])
+m_admin_event = Event.create([{group_rep_id: m_admin.id, name: "Test Marquette Admin Event", organizer_contact_info: m_admin.email, event_time: Faker::Time.forward(28, :morning), is_free: true, location: m_admin.group.address}])
 
 
 
