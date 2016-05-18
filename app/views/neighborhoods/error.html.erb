@@ -7,7 +7,7 @@
         <h3> Oops, that search term didn't return any neighborhoods.  Here is a list of all the neighborhoods. </h3>
         <ul>
           <% @neighborhoods.each do |neighborhood| %>
-            <li class="neighborhood"> <%= neighborhood.name %> </li>
+            <li class="neighborhood"> <a href= "/neighborhoods/<%= neighborhood.id %>"> <%= neighborhood.name %> </a> </li>
           <% end %>
         </ul>
       </div>
