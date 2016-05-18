@@ -7,14 +7,12 @@ class EventsController < ApplicationController
   end
 
   def show
-    @event = Event.find(params[:id])
   end
 
   def new
   end
 
   def edit
-    @event = Event.find(params[:id])
   end
 
   def create
@@ -42,5 +40,9 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit(:group_rep_id, :name, :organizer_contact_info,
                                     :event_time, :is_free, :location)
+  end
+  
+  def set_post
+    @event = Event.find(params[:id])
   end
 end
