@@ -1,29 +1,39 @@
 <div class="container-fluid">
   <div class="row" id="masterRow">
-    
+
     <!--first half of screen-->
     <div class="col-sm-6" id="firstHalf">
       <div class="neighborhood_show">
         <h3> <%= @neighborhood.name %> </h3>
-        <ul>
+
           <% @neighborhood.groups.each do |group| %>
-            <li class="group"> <%= group.name %> </li>
+              <% group.group_reps.each do |group_rep| %>
+                  <% group_rep.events.each do |event| %>
+                    <ul class="group_rep_event">
+                      <li> <%= event.name %> </li>
+                      <li> <%= event.location %> </li>
+                      <li>Is the event free? <%= event.is_free? %> </li>
+
+                    </ul>
+                  <% end %>
+              <% end %>
+
           <% end %>
-        </ul>
+
       </div>
-      
-      
+
+
     </div>
-    
+
     <!--second half of screen: used for google map display-->
     <div class="col-sm-6" id="secondHalf">
       <div id="map"></div>
-      
-      
-      
-      
+
+
+
+
     </div>
-    
+
   </div> <!--end of masterRow-->
 </div> <!--end of container-->
 
@@ -35,7 +45,7 @@
   var map;
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-      // lat and lng are simple placeholders 
+      // lat and lng are simple placeholders
       center: {lat: 41.77, lng: -87.70},
       zoom: 15
     });
