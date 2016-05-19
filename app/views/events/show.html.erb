@@ -20,6 +20,10 @@
     </table>
     
     <br/>
-    <%= link_to 'Delete this event.', group_rep_event_path(params[:group_rep_id], params[:id]), :method => 'delete' %>
+    <%= link_to 'Edit this event', edit_group_rep_event_path(params[:group_rep_id], params[:id]) %>
+    <br/>
+    <%= link_to 'Delete this event', group_rep_event_path(params[:group_rep_id], params[:id]), :method => 'delete' %>
+    <br/>
+    <%= link_to 'Back to event list', group_rep_events_path(params[:group_rep_id]) %>
   </body>
 </html>

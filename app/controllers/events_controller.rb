@@ -15,6 +15,8 @@ class EventsController < ApplicationController
   end
 
   def edit
+    @group_rep = GroupRep.find(params[:group_rep_id])
+    @event = Event.find(params[:id])
   end
 
   def create
