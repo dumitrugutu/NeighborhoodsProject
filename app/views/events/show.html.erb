@@ -18,5 +18,8 @@
         <td><%= @event.is_free %></td>
       </tr>
     </table>
+    
+    <br/>
+    <%= link_to 'Delete this event.', group_rep_event_path(params[:group_rep_id], params[:id]), :method => 'delete' %>
   </body>
 </html>

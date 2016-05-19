@@ -18,7 +18,10 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.create!(event_params)
+    @event = Event.new(event_params)
+    @event.group_rep_id = params[:group_rep_id]
+    @event.save
+    
     flash[:notice] = "#{@event.name} was created successfully."
     redirect_to group_rep_events_path
   end
