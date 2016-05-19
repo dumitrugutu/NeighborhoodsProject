@@ -3,21 +3,27 @@ class EventsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
+    @events = Event.where(['group_rep_id = ?', params[:group_rep_id]])
   end
 
   def show
-    @event = Event.find(params[:id])
   end
 
   def new
+    @group_rep = GroupRep.find(params[:group_rep_id])
+    @event = Event.new
   end
 
   def edit
+    @group_rep = GroupRep.find(params[:group_rep_id])
     @event = Event.find(params[:id])
   end
 
   def create
-    @event = Event.create!(event_params)
+    @event = Event.new(event_params)
+    @event.group_rep_id = params[:group_rep_id]
+    @event.save
+    
     flash[:notice] = "#{@event.name} was created successfully."
     redirect_to group_rep_events_path
   end
@@ -41,5 +47,9 @@ class EventsController < ApplicationController
   def event_params
     params.require(:event).permit(:group_rep_id, :name, :organizer_contact_info,
                                     :event_time, :is_free, :location)
+  end
+  
+  def set_post
+    @event = Event.find(params[:id])
   end
 end
