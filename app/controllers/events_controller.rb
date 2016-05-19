@@ -10,6 +10,8 @@ class EventsController < ApplicationController
   end
 
   def new
+    @group_rep = GroupRep.find(params[:group_rep_id])
+    @event = Event.new
   end
 
   def edit
