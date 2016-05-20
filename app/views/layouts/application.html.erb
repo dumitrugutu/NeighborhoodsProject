@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  
+
 
   <div class="container-fluid">
     <% if current_group_rep %>
@@ -15,8 +15,10 @@
     <% else %>
       <%= link_to "Login", new_group_rep_session_path %>
     <% end %>
-    
+
     <%= link_to "Home", neighborhoods_path %>
+
+    <%= link_to "About", about_neighborhoods_path %>
   </div>
 
 
