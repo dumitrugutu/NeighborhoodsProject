@@ -1,7 +1,7 @@
 class NeighborhoodsController < ApplicationController
   def index
     if current_group_rep
-      redirect_to new_neighborhood_path
+      render 'index'
     end
   end
 
@@ -23,10 +23,14 @@ class NeighborhoodsController < ApplicationController
     end
   end
 
+  def about
+  end
+
   def show
     @neighborhood = Neighborhood.find_by(id: params[:id])
     @groups = @neighborhood.groups
   end
+
 
   private
 
