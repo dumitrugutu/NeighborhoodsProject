@@ -15,7 +15,7 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
-
+@import url(https://fonts.googleapis.com/css?family=Homemade+Apple);
 
 /************* GENERAL STYLING *************/
 body{
@@ -40,6 +40,10 @@ body{
   
   #siteTitle{
     color: white;
+    #redCursive{
+      font-family: 'Homemade Apple', cursive;
+      color: #d10000;
+    }
   }
   #actionContainer{
     padding-top: 20px;
