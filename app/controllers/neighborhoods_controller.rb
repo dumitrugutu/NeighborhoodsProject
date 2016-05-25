@@ -6,7 +6,7 @@ class NeighborhoodsController < ApplicationController
   end
 
   def new
-
+    # default is to render new template
   end
 
   def search
