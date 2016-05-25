@@ -52,4 +52,8 @@ class EventsController < ApplicationController
   def set_post
     @event = Event.find(params[:id])
   end
+  
+  def authenticate_group_rep!
+    # to be filled
+  end
 end
