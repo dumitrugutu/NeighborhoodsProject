@@ -24,6 +24,7 @@ class NeighborhoodsController < ApplicationController
   end
 
   def about
+    # default is to render about template
   end
 
   def show
