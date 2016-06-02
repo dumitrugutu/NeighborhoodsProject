@@ -5,13 +5,14 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
+  get 'neighborhoods/about' => 'neighborhoods#about', as: 'about_neighborhoods'
   resources :neighborhoods
   #root 'neighborhoods#index'
   root :to => redirect('/neighborhoods')
 
   post 'neighborhoods/search' => 'neighborhoods#search', as: 'search_neighborhoods'
   #get 'neighborhoods/:id' => 'neighborhoods#show', as: 'neighborhood'
-  
+
   resources :group_rep do
     resources :events
   end

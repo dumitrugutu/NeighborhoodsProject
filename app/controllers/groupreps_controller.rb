@@ -1,12 +1,7 @@
 class GroupRepsController < ApplicationController
-
   def create
     @group_rep = GroupRep.new(group_rep_params)
   end
-
-
-
-
 
   private
 
