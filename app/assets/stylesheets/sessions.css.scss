@@ -1,0 +1,26 @@
+////////////////////////////////////////////
+///////// STYLING FOR LOG IN PAGE //////////
+////////////////////////////////////////////
+
+#LoginMasterContainer{
+    height: 100vh;
+    background-color: rgba(0,0,0,0.6);
+    color: white;
+    #loginForm{
+        margin-top: 20vh;
+        padding-bottom: 25px;
+        
+        background-color: #919091;
+        border-radius: 20px;
+        
+        input{
+            padding-left: 5px;
+            
+            border-radius: 9px;
+            color: black;
+            &:focus{
+                outline: none;
+            }
+        }
+    }
+}
