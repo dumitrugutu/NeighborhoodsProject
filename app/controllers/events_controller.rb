@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :authenticate_group_rep!
+  before_action :verify_group_rep
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -51,5 +52,11 @@ class EventsController < ApplicationController
   
   def set_post
     @event = Event.find(params[:id])
+  end
+  
+  def verify_group_rep
+    if current_group_rep.id.to_s != params[:group_rep_id]
+      redirect_to '/'
+    end
   end
 end
