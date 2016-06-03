@@ -11,6 +11,9 @@
 
   <div class="container-fluid">
     <% if current_group_rep %>
+      <% if current_group_rep.admin == true %>
+        <%= link_to "Admin Dashboard", rails_admin_path %>
+      <% end %>
       <%= link_to "Logout", destroy_group_rep_session_path, method: :delete %>
     <% else %>
       <%= link_to "Login", new_group_rep_session_path %>
