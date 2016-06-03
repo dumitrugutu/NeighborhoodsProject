@@ -2,11 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+/************* SHOW PAGE STYLING *************/
+
 // basic google map styling
+#firstHalf{
+  background-color: #f2f2f2;
+  height: 91vh;
+}
 #secondHalf{
     padding: 0;
     #map{
-      height: 600px;
+      height: 91vh;
       width: 100%;
     }
 }

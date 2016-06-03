@@ -1,39 +1,49 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
+<div class="container-fluid" id="SignInMasterContainer">
+  
+  <div class="row">
+    <div class="col-sm-4 col-sm-offset-4 text-center" id="loginForm">
+      <h2>Sign up</h2>
+      
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= devise_error_messages! %>
+      
+        <div class="field">
+          <%= f.label :name %><br />
+          <%= f.text_field :name, autofocus: true %>
+        </div>
+      
+        <div class="field">
+          <%= f.label :group %><br />
+          <%= f.select :group_id, [['Marquette Park', '1'], ['Montgomery Playground Park', '2'], ['Oakley Park', '3'], ['Chicago Police Department - 8th District Station', '4',], ['Chicago Fire Department', '5'], ['Tarkington Elementary School', '6'], ['Marquette Elementary School', '7'], ['Eberhart Elementary School', '8'], ['Catalyst Maria Charter School', '9'], ['Greater Southwest Development Corporation', '10'], ['Southwest Organizing Project', '11'] ] %>
+        </div>
+      
+        <div class="field">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true %>
+        </div>
+      
+        <div class="field">
+          <%= f.label :password %>
+          <% if @minimum_password_length %>
+          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "off" %>
+        </div>
+      
+        <div class="field">
+          <%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "off" %>
+        </div>
+      
+        <div class="actions">
+          <%= f.submit "Sign up" %>
+        </div>
+      <% end %>
+      
+      <%= render "devise/shared/links" %>
+    </div>
+    
   </div>
+  
+</div>
 
-  <div class="field">
-    <%= f.label :group %><br />
-    <%= f.select :group_id, [['Marquette Park', '1'], ['Montgomery Playground Park', '2'], ['Oakley Park', '3'], ['Chicago Police Department - 8th District Station', '4',], ['Chicago Fire Department', '5'], ['Tarkington Elementary School', '6'], ['Marquette Elementary School', '7'], ['Eberhart Elementary School', '8'], ['Catalyst Maria Charter School', '9'], ['Greater Southwest Development Corporation', '10'], ['Southwest Organizing Project', '11'] ] %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>

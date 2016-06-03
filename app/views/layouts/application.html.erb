@@ -9,26 +9,46 @@
 <body>
 
 
-  <div class="container-fluid">
-    <% if current_group_rep %>
-      <% if current_group_rep.admin == true %>
-        <%= link_to "Admin Dashboard", rails_admin_path %>
-      <% end %>
-      <%= link_to "Logout", destroy_group_rep_session_path, method: :delete %>
-    <% else %>
-      <%= link_to "Login", new_group_rep_session_path %>
-    <% end %>
+  <div class="container-fluid" id="headerContainer">
+    <header>
+      <div class="row">
+        
+        <a href="/">
+        <div class="col-xs-6">
+          <h3 id="siteTitle">My <span id="redCursive">Chi</span> Community</h3>
+        </div>
+        </a>
+        
+        
+        <div class="col-xs-6 text-right" id="actionContainer">
+          <% if current_group_rep %>
+            <button>
+              <% if current_group_rep.admin == true %>
+                <%= link_to "Admin Dashboard", rails_admin_path %>
+              <% end %>
+            </button>
+            <button>
+              <%= link_to "Logout", destroy_group_rep_session_path, method: :delete %>
+            </button>
+          <% else %>
+            <button>
+              <%= link_to "Login", new_group_rep_session_path %>
+            </button>
+          <% end %>
+          <button>
+            <%= link_to "Home", neighborhoods_path %>
+          </button>
+        </div>
+        
+      </div>
+    </header>
 
-    <%= link_to "Home", neighborhoods_path %>
-
-    <%= link_to "About", about_neighborhoods_path %>
   </div>
-
 
   <div class="content">
     <%= yield %>
   </div>
-
+  
 
 </body>
 </html>
