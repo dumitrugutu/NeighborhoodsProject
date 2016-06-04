@@ -36,18 +36,46 @@
 
 <!--js to render google map -->
 <script>
-  //ajax call to get boundaries for Chicago Lawn.
-  var boundaries;
+
+  var boundaries; 
+  var policeStations = [];
+  // var schools = [];
+  // var fire stations  = [];
+  // var libraries = [];
+  // var hospitals = [];
+  var i;
+  //ajax call to get boundaries for Chicago Lawn. Down the road we will make this dynamic so it works not just for Chicago Lawn but for all neighborhoods
   $.ajax({
     url: "https://data.cityofchicago.org/resource/igwz-8jzy.json", 
     async: false,
     success: function(data){
-        boundaries = data[63].the_geom.coordinates;
+      boundaries = data[63].the_geom.coordinates;
     }
   });
 
-  function initMap(){
+  //ajax call to get police stations for all of Chicago
+  $.ajax({
+    url: "https://data.cityofchicago.org/resource/9rg7-mz9y.json", 
+    async: false,
+    success: function(data){
+      // console.log(data);
+      var station = [];
+      data.forEach(function(x){
+        station = [];
+        station.push(x.district_name, parseFloat(x.latitude), parseFloat(x.longitude));
+        policeStations.push(station);
+        
+      }); 
+      console.log(policeStations);
+    }
+  });
   
+
+
+
+  function initMap(){
+    
+    // var data is used for setting boundaries
     var data = {
       "type": "FeatureCollection",
       "features": [{
@@ -62,22 +90,48 @@
       }]
     };
     
+    
     var mapProp = {
-        center: {lat: <%= @neighborhood.lat %>, lng: <%= @neighborhood.lng %>},
-        zoom: 14,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+      center: {lat: <%= @neighborhood.lat %>, lng: <%= @neighborhood.lng %>},
+      zoom: 14,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     
     var map = new google.maps.Map(document.getElementById("map"), mapProp);
     
     map.data.addGeoJson(data);
     map.data.setStyle(function (feature) {
-        var color = feature.getProperty('fillColor');
-        return {
-            fillColor: color,
-            strokeWeight: 1
-        };
+      var color = feature.getProperty('fillColor');
+      return {
+          fillColor: color,
+          strokeWeight: 1
+      };
     });
+    
+    //USED TO PLACE POLICE STATION MARKERS
+    var marker;
+    var infowindow = new google.maps.InfoWindow(), marker, i;
+    
+    for (i = 0; i < policeStations.length; i++ ){
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(policeStations[i][1], policeStations[i][2]),
+        map: map,
+        icon: '../assets/policeMarker.png'
+      });
+      
+      
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+          return function() {
+              infowindow.setContent(policeStations[i][0]);
+              infowindow.open(map, marker);
+          }
+      })(marker, i));
+    }
+    
+    
+    
+    
+    
   }
   
   
