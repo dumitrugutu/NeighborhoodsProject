@@ -40,10 +40,11 @@
   var boundaries; 
   var policeStations = [];
   // var schools = [];
-  // var fire stations  = [];
+  // var fireStations  = [];
   var libraries = [];
   // var hospitals = [];
   var i;
+  
   //ajax call to get boundaries for Chicago Lawn. Down the road we will make this dynamic so it works not just for Chicago Lawn but for all neighborhoods
   $.ajax({
     url: "https://data.cityofchicago.org/resource/igwz-8jzy.json", 
@@ -58,7 +59,6 @@
     url: "https://data.cityofchicago.org/resource/9rg7-mz9y.json", 
     async: false,
     success: function(data){
-      // console.log(data);
       var station = [];
       data.forEach(function(x){
         station = [];
@@ -66,10 +66,23 @@
         policeStations.push(station);
         
       }); 
-      console.log(policeStations);
     }
   });
   
+  //ajax call to get libraries for all of Chicago
+  $.ajax({
+    url: "https://data.cityofchicago.org/resource/psqp-6rmg.json", 
+    async: false,
+    success: function(data){
+      var library = [];
+      data.forEach(function(x){
+        library = [];
+        library.push(x.name_, x.location.coordinates[0], x.location.coordinates[1]);
+        libraries.push(library);
+        
+      });
+    }
+  });
 
 
 
@@ -109,23 +122,45 @@
     });
     
     //USED TO PLACE POLICE STATION MARKERS
-    var marker;
-    var infowindow = new google.maps.InfoWindow(), marker, i;
+    var policeMarker;
+    var policeInfoWindow = new google.maps.InfoWindow(), policeMarker, i;
     
     for (i = 0; i < policeStations.length; i++ ){
-      marker = new google.maps.Marker({
+      policeMarker = new google.maps.Marker({
         position: new google.maps.LatLng(policeStations[i][1], policeStations[i][2]),
         map: map,
         icon: '../assets/policeMarker.png'
       });
       
       
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      google.maps.event.addListener(policeMarker, 'click', (function(policeMarker, i) {
           return function() {
-              infowindow.setContent(policeStations[i][0]);
-              infowindow.open(map, marker);
+              policeInfoWindow.setContent(policeStations[i][0] + ' Police Station');
+              policeInfoWindow.open(map, policeMarker);
           }
-      })(marker, i));
+      })(policeMarker, i));
+    }
+    
+    
+    //USED TO PLACE LIBRARIES
+    var libraryMarker;
+    var libraryInfoWindow = new google.maps.InfoWindow(), libraryMarker, i;
+    
+    for (i = 0; i < libraries.length; i++ ){
+      libraryMarker = new google.maps.Marker({
+        position: new google.maps.LatLng(libraries[i][2], libraries[i][1]),
+        map: map,
+        icon: '../assets/libraryMarker.png'
+      });
+      
+      
+      google.maps.event.addListener(libraryMarker, 'click', (function(libraryMarker, i) {
+          return function() {
+              libraryInfoWindow.setContent(libraries[i][0] + ' Public Library');
+              libraryInfoWindow.open(map, libraryMarker);
+          }
+      })(libraryMarker, i));
+      console.log(libraries[i]);
     }
     
     
