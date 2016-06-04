@@ -240,6 +240,7 @@ DEPENDENCIES
   faker
   jbuilder (~> 2.0)
   jquery-rails
+  json (~> 1.8, >= 1.8.3)
   launchy
   pg
   rails (= 4.1.13)
@@ -258,4 +259,4 @@ RUBY VERSION
    ruby 2.2.3p173
 
 BUNDLED WITH
-   1.12.3
+   1.12.4
