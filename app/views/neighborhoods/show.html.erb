@@ -40,7 +40,7 @@
   var boundaries; 
   var policeStations = [];
   // var schools = [];
-  // var fireStations  = [];
+  var fireStations  = [];
   var libraries = [];
   // var hospitals = [];
   var i;
@@ -81,6 +81,22 @@
         libraries.push(library);
         
       });
+    }
+  });
+  
+  //ajax call to get fire stations for all of Chicago
+  $.ajax({
+    url: "https://data.cityofchicago.org/resource/b4bk-rjxe.json", 
+    async: false,
+    success: function(data){
+      var fireStation = [];
+      data.forEach(function(x){
+        fireStation = [];
+        fireStation.push(x.name, x.location.coordinates[0], x.location.coordinates[1]);
+        fireStations.push(fireStation);
+        
+      });
+      console.log(fireStations);
     }
   });
 
@@ -142,7 +158,7 @@
     }
     
     
-    //USED TO PLACE LIBRARIES
+    //USED TO PLACE LIBRARY MARKERS 
     var libraryMarker;
     var libraryInfoWindow = new google.maps.InfoWindow(), libraryMarker, i;
     
@@ -160,10 +176,27 @@
               libraryInfoWindow.open(map, libraryMarker);
           }
       })(libraryMarker, i));
-      console.log(libraries[i]);
     }
     
+    //USED TO PLACE FIRESTATION MARKERS 
+    var fireStationMarker;
+    var fireInfoWindow = new google.maps.InfoWindow(), fireStationMarker, i;
     
+    for (i = 0; i < fireStations.length; i++ ){
+      fireStationMarker = new google.maps.Marker({
+        position: new google.maps.LatLng(fireStations[i][2], fireStations[i][1]),
+        map: map,
+        icon: '../assets/fireMarker.png'
+      });
+      
+      
+      google.maps.event.addListener(fireStationMarker, 'click', (function(fireStationMarker, i) {
+          return function() {
+              fireInfoWindow.setContent(fireStations[i][0] + ' Fire Station');
+              fireInfoWindow.open(map, fireStationMarker);
+          }
+      })(fireStationMarker, i));
+    }
     
     
     
