@@ -38,12 +38,18 @@
 <script>
 
   var boundaries; 
-  var policeStations = [];
-  var fireStations  = [];
-  var libraries = [];
-  var parks = [];
+  var policeStations = [], policeMarker, policeInfoWindow;
+  var fireStations  = [], fireStationMarker, fireInfoWindow;
+  var libraries = [], libraryMarker, libraryInfoWindow;
+  var parks = [], parkMarker, parkInfoWindow;
   // var hospitals = [];
   // var schools = [];
+  //USED TO CREATE RANGE AROUND COMMUNITY AREA. THIS IS TO DISPLAY MARKERS AROUND COMMUNITY AREA
+  var latMin = <%= @neighborhood.lat %> - 0.03;
+  var latMax = <%= @neighborhood.lat %> + 0.03;
+  var lngMin = <%= @neighborhood.lng %> - 0.03;
+  var lngMax = <%= @neighborhood.lng %> + 0.03;
+  //VAR i IS USED FOR FOR LOOPS BELOW
   var i;
   
   //ajax call to get boundaries for Chicago Lawn. Down the road we will make this dynamic so it works not just for Chicago Lawn but for all neighborhoods
@@ -158,9 +164,15 @@
       };
     });
     
+    
+    
+    
+    
+    
+    
+    
     //USED TO PLACE POLICE STATION MARKERS
-    var policeMarker;
-    var policeInfoWindow = new google.maps.InfoWindow(), policeMarker, i;
+    policeInfoWindow = new google.maps.InfoWindow(), policeMarker, i;
     
     for (i = 0; i < policeStations.length; i++ ){
       policeMarker = new google.maps.Marker({
@@ -178,10 +190,8 @@
       })(policeMarker, i));
     }
     
-    
     //USED TO PLACE LIBRARY MARKERS 
-    var libraryMarker;
-    var libraryInfoWindow = new google.maps.InfoWindow(), libraryMarker, i;
+    libraryInfoWindow = new google.maps.InfoWindow(), libraryMarker, i;
     
     for (i = 0; i < libraries.length; i++ ){
       libraryMarker = new google.maps.Marker({
@@ -200,34 +210,32 @@
     }
     
     //USED TO PLACE FIRESTATION MARKERS 
-    var fireStationMarker;
-    var fireInfoWindow = new google.maps.InfoWindow(), fireStationMarker, i;
+    fireInfoWindow = new google.maps.InfoWindow(), fireStationMarker, i;
     
     for (i = 0; i < fireStations.length; i++ ){
-      fireStationMarker = new google.maps.Marker({
-        position: new google.maps.LatLng(fireStations[i][2], fireStations[i][1]),
-        map: map,
-        icon: '../assets/fireMarker.png'
-      });
+      //IF STATEMENT FILTERS OUT FIRE STATIONS THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
+      var fireLat = fireStations[i][2];
+      var fireLng = fireStations[i][1];
+      if(fireLat >= latMin && fireLat <= latMax && fireLng >= lngMin && fireLng <= lngMax){
+        fireStationMarker = new google.maps.Marker({
+          position: new google.maps.LatLng(fireStations[i][2], fireStations[i][1]),
+          map: map,
+          icon: '../assets/fireMarker.png'
+        });
+        
+        
+        google.maps.event.addListener(fireStationMarker, 'click', (function(fireStationMarker, i) {
+            return function() {
+                fireInfoWindow.setContent(fireStations[i][0] + ' Fire Station');
+                fireInfoWindow.open(map, fireStationMarker);
+            }
+        })(fireStationMarker, i));
+      }
       
-      
-      google.maps.event.addListener(fireStationMarker, 'click', (function(fireStationMarker, i) {
-          return function() {
-              fireInfoWindow.setContent(fireStations[i][0] + ' Fire Station');
-              fireInfoWindow.open(map, fireStationMarker);
-          }
-      })(fireStationMarker, i));
     }
     
-    //USED TO PLACE PARKS. 
-    var parkMarker;
-    var parkInfoWindow = new google.maps.InfoWindow(), parkMarker, i;
-    
-    var latMin = <%= @neighborhood.lat %> - 0.03;
-    var latMax = <%= @neighborhood.lat %> + 0.03;
-    var lngMin = <%= @neighborhood.lng %> - 0.03;
-    var lngMax = <%= @neighborhood.lng %> + 0.03;
-    
+    //USED TO PLACE PARKS.
+    parkInfoWindow = new google.maps.InfoWindow(), parkMarker, i;
     
     for (i = 0; i < parks.length; i++ ){
       //IF STATEMENT FILTERS OUT PARKS THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
