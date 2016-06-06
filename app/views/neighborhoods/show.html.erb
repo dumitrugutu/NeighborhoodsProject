@@ -51,10 +51,19 @@
     url: "https://data.cityofchicago.org/resource/igwz-8jzy.json", 
     async: false,
     success: function(data){
-      boundaries = data[63].the_geom.coordinates;
+      var nameFromCall, nameFromDatabase;
+      for (i=0; i < data.length ; i++){
+        nameFromCall = data[i].community.toLowerCase();
+        nameFromDatabase = "<%= @neighborhood.name %>".toLowerCase();
+        
+        if(nameFromCall === nameFromDatabase){
+          boundaries = data[i].the_geom.coordinates;
+        }
+        
+      }
+      
     }
   });
-
   //ajax call to get police stations for all of Chicago
   $.ajax({
     url: "https://data.cityofchicago.org/resource/9rg7-mz9y.json", 
@@ -69,7 +78,6 @@
       }); 
     }
   });
-  
   //ajax call to get libraries for all of Chicago
   $.ajax({
     url: "https://data.cityofchicago.org/resource/psqp-6rmg.json", 
@@ -84,7 +92,6 @@
       });
     }
   });
-  
   //ajax call to get fire stations for all of Chicago
   $.ajax({
     url: "https://data.cityofchicago.org/resource/b4bk-rjxe.json", 
@@ -100,7 +107,7 @@
       
     }
   });
-  //ajax call to get parks for all of Chicago
+  //ajax call to get parks that are close to searched community 
   $.ajax({
     url: "https://data.cityofchicago.org/resource/2eaw-bdhe.json", 
     async: false,
@@ -225,7 +232,6 @@
     for (i = 0; i < parks.length; i++ ){
       //IF STATEMENT FILTERS OUT PARKS THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
       
-      console.log(i);
       if(parks[i][1] !== undefined){
         var parkLat = parks[i][1].latitude; 
         var parkLng = parks[i][1].longitude;
