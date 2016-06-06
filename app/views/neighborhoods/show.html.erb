@@ -21,17 +21,11 @@
           <% end %>
 
       </div>
-
-
     </div>
 
     <!--second half of screen: used for google map display-->
     <div class="col-sm-6" id="secondHalf">
       <div id="map"></div>
-
-
-
-
     </div>
 
   </div> <!--end of masterRow-->
@@ -42,14 +36,288 @@
 
 <!--js to render google map -->
 <script>
-  var map;
-  function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-      // lat and lng are simple placeholders
+
+  var boundaries; 
+  var policeStations = [], policeMarker, policeInfoWindow, policeLat, policeLng;
+  var fireStations  = [], fireStationMarker, fireInfoWindow, fireLat, fireLng;
+  var libraries = [], libraryMarker, libraryInfoWindow, libraryLat, libraryLng;
+  var parks = [], parkMarker, parkInfoWindow, parkLat, parkLng;
+  var organizations = [["Inner-City Muslim Action Network", 41.779325, -87.692793],["Greater Southwest Development Center", 41.778946, -87.688732],["Metropolitan Family Services", 41.882275, -87.629036]], organizationMarker, organizationInfoWindow, organizationLat, organizationLng;
+  // var hospitals = [];
+  // var schools = [];
+  //USED TO CREATE RANGE AROUND COMMUNITY AREA. THIS IS TO DISPLAY MARKERS AROUND COMMUNITY AREA
+  var latMin = <%= @neighborhood.lat %> - 0.03;
+  var latMax = <%= @neighborhood.lat %> + 0.03;
+  var lngMin = <%= @neighborhood.lng %> - 0.03;
+  var lngMax = <%= @neighborhood.lng %> + 0.03;
+  //VAR i IS USED FOR FOR LOOPS BELOW
+  var i;
+  
+  //ajax call to get boundaries for searched community 
+  $.ajax({
+    url: "https://data.cityofchicago.org/resource/igwz-8jzy.json", 
+    async: false,
+    success: function(data){
+      var nameFromCall, nameFromDatabase;
+      for (i=0; i < data.length ; i++){
+        nameFromCall = data[i].community.toLowerCase();
+        nameFromDatabase = "<%= @neighborhood.name %>".toLowerCase();
+        
+        if(nameFromCall === nameFromDatabase){
+          boundaries = data[i].the_geom.coordinates;
+        }
+        
+      }
+      
+    }
+  });
+  //ajax call to get police stations for searched community 
+  $.ajax({
+    url: "https://data.cityofchicago.org/resource/9rg7-mz9y.json", 
+    async: false,
+    success: function(data){
+      var station = [];
+      data.forEach(function(x){
+        station = [];
+        station.push(x.district_name, parseFloat(x.latitude), parseFloat(x.longitude));
+        policeStations.push(station);
+        
+      }); 
+    }
+  });
+  //ajax call to get libraries for searched community
+  $.ajax({
+    url: "https://data.cityofchicago.org/resource/psqp-6rmg.json", 
+    async: false,
+    success: function(data){
+      var library = [];
+      data.forEach(function(x){
+        library = [];
+        library.push(x.name_, x.location.coordinates[1], x.location.coordinates[0]);
+        libraries.push(library);
+        
+      });
+    }
+  });
+  //ajax call to get fire stations for searched community
+  $.ajax({
+    url: "https://data.cityofchicago.org/resource/b4bk-rjxe.json", 
+    async: false,
+    success: function(data){
+      var fireStation = [];
+      data.forEach(function(x){
+        fireStation = [];
+        fireStation.push(x.name, x.location.coordinates[1], x.location.coordinates[0]);
+        fireStations.push(fireStation);
+        
+      });
+      
+    }
+  });
+  //ajax call to get parks for searched community 
+  $.ajax({
+    url: "https://data.cityofchicago.org/resource/2eaw-bdhe.json", 
+    async: false,
+    success: function(data){
+      var park = [];
+      data.forEach(function(x){
+        park = [];
+        if(x.location !== undefined){
+          park.push(x.park_name, x.location.latitude, x.location.longitude);
+          parks.push(park);
+        }
+        
+      });
+    }
+  });
+
+
+  function initMap(){
+    
+    // var data is used for setting boundaries
+    var data = {
+      "type": "FeatureCollection",
+      "features": [{
+        "type": "Feature",
+        "properties": {
+          "fillColor": "grey"
+        },
+        "geometry": {
+          "type": "MultiPolygon",
+          "coordinates": boundaries
+        }
+      }]
+    };
+    
+    
+    var mapProp = {
       center: {lat: <%= @neighborhood.lat %>, lng: <%= @neighborhood.lng %>},
-      zoom: 13
+      zoom: 14,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    
+    var map = new google.maps.Map(document.getElementById("map"), mapProp);
+    
+    map.data.addGeoJson(data);
+    map.data.setStyle(function (feature) {
+      var color = feature.getProperty('fillColor');
+      return {
+          fillColor: color,
+          strokeWeight: 1
+      };
     });
+    
+    
+    
+    
+    
+    //USED TO PLACE POLICE STATION MARKERS
+    policeInfoWindow = new google.maps.InfoWindow(), policeMarker, i;
+    
+    for (i = 0; i < policeStations.length; i++ ){
+      //IF STATEMENT FILTERS OUT POLICE STATIONS THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
+      policeLat = policeStations[i][1];
+      policeLng = policeStations[i][2];
+      if(policeLat >= latMin && policeLat <= latMax && policeLng >= lngMin && policeLng <= lngMax){
+        policeMarker = new google.maps.Marker({
+          position: new google.maps.LatLng(policeLat, policeLng),
+          map: map,
+          icon: '../assets/policeMarker.png'
+        });
+        
+        
+        google.maps.event.addListener(policeMarker, 'click', (function(policeMarker, i) {
+            return function() {
+                policeInfoWindow.setContent(policeStations[i][0] + ' Police Station');
+                policeInfoWindow.open(map, policeMarker);
+            }
+        })(policeMarker, i));
+      }
+      
+    }
+    
+    //USED TO PLACE LIBRARY MARKERS 
+    libraryInfoWindow = new google.maps.InfoWindow(), libraryMarker, i;
+    
+    for (i = 0; i < libraries.length; i++ ){
+      //IF STATEMENT FILTERS OUT LIBRARIES THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
+      libraryLat = libraries[i][1];
+      libraryLng = libraries[i][2];
+      if(libraryLat >= latMin && libraryLat <= latMax && libraryLng >= lngMin && libraryLng <= lngMax){
+        libraryMarker = new google.maps.Marker({
+          position: new google.maps.LatLng(libraryLat, libraryLng),
+          map: map,
+          icon: '../assets/libraryMarker.png'
+        });
+        
+        
+        google.maps.event.addListener(libraryMarker, 'click', (function(libraryMarker, i) {
+            return function() {
+                libraryInfoWindow.setContent(libraries[i][0] + ' Public Library');
+                libraryInfoWindow.open(map, libraryMarker);
+            }
+        })(libraryMarker, i));
+      }
+      
+    }
+    
+    //USED TO PLACE FIRESTATION MARKERS 
+    fireInfoWindow = new google.maps.InfoWindow(), fireStationMarker, i;
+    
+    for (i = 0; i < fireStations.length; i++ ){
+      //IF STATEMENT FILTERS OUT FIRE STATIONS THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
+      fireLat = fireStations[i][1];
+      fireLng = fireStations[i][2];
+      if(fireLat >= latMin && fireLat <= latMax && fireLng >= lngMin && fireLng <= lngMax){
+        fireStationMarker = new google.maps.Marker({
+          position: new google.maps.LatLng(fireLat, fireLng),
+          map: map,
+          icon: '../assets/fireMarker.png'
+        });
+        
+        
+        google.maps.event.addListener(fireStationMarker, 'click', (function(fireStationMarker, i) {
+            return function() {
+                fireInfoWindow.setContent(fireStations[i][0] + ' Fire Station');
+                fireInfoWindow.open(map, fireStationMarker);
+            }
+        })(fireStationMarker, i));
+      }
+      
+    }
+    
+    //USED TO PLACE PARKS.
+    parkInfoWindow = new google.maps.InfoWindow(), parkMarker, i;
+    
+    for (i = 0; i < parks.length; i++ ){
+      //IF STATEMENT FILTERS OUT PARKS THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
+  
+      parkLat = parks[i][1]; 
+      parkLng = parks[i][2];
+    
+      if (parkLat >= latMin && parkLat <= latMax && parkLng >= lngMin && parkLng <= lngMax ){
+        parkMarker = new google.maps.Marker({
+          position: new google.maps.LatLng(parkLat, parkLng),
+          map: map,
+          icon: '../assets/treeMarker.png'
+        });
+        
+        
+        google.maps.event.addListener(parkMarker, 'click', (function(parkMarker, i) {
+            return function() {
+                parkInfoWindow.setContent(parks[i][0] + ' Park');
+                parkInfoWindow.open(map, parkMarker);
+            }
+        })(parkMarker, i));
+        
+        
+        
+        
+      }
+      
+      
+      
+    }
+    
+    //USED TO ORGANIZATIONS.
+    organizationInfoWindow = new google.maps.InfoWindow(), parkMarker, i;
+    
+    for (i = 0; i < organizations.length; i++ ){
+      //IF STATEMENT FILTERS OUT PARKS THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
+  
+      organizationLat = organizations[i][1]; 
+      organizationsLng = organizations[i][2];
+    
+      if (organizationLat >= latMin && organizationLat <= latMax && organizationsLng >= lngMin && organizationsLng <= lngMax ){
+        organizationMarker = new google.maps.Marker({
+          position: new google.maps.LatLng(organizationLat, organizationsLng),
+          map: map,
+          icon: '../assets/organizationMarker.png'
+        });
+        
+        
+        google.maps.event.addListener(organizationMarker, 'click', (function(organizationMarker, i) {
+            return function() {
+                organizationInfoWindow.setContent(organizations[i][0]);
+                organizationInfoWindow.open(map, organizationMarker);
+            }
+        })(organizationMarker, i));
+        
+        
+        
+        
+      }
+      
+      
+      
+    }
+    
+    
   }
+  
+  
+  
 </script>
+
 <!--google maps api link -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9bgTM6mZMkfpii73l5lUwTHfMq8N2zos&callback=initMap" async defer></script>
