@@ -39,10 +39,11 @@
 
   var boundaries; 
   var policeStations = [];
-  // var schools = [];
   var fireStations  = [];
   var libraries = [];
+  var parks = [];
   // var hospitals = [];
+  // var schools = [];
   var i;
   
   //ajax call to get boundaries for Chicago Lawn. Down the road we will make this dynamic so it works not just for Chicago Lawn but for all neighborhoods
@@ -96,10 +97,23 @@
         fireStations.push(fireStation);
         
       });
-      console.log(fireStations);
+      
     }
   });
-
+  //ajax call to get parks for all of Chicago
+  $.ajax({
+    url: "https://data.cityofchicago.org/resource/2eaw-bdhe.json", 
+    async: false,
+    success: function(data){
+      var park = [];
+      data.forEach(function(x){
+        park = [];
+        park.push(x.park_name, x.location);
+        parks.push(park);
+        
+      });
+    }
+  });
 
 
   function initMap(){
@@ -110,7 +124,7 @@
       "features": [{
         "type": "Feature",
         "properties": {
-          "fillColor": "red"
+          "fillColor": "grey"
         },
         "geometry": {
           "type": "MultiPolygon",
@@ -196,6 +210,48 @@
               fireInfoWindow.open(map, fireStationMarker);
           }
       })(fireStationMarker, i));
+    }
+    
+    //USED TO PLACE PARKS. 
+    var parkMarker;
+    var parkInfoWindow = new google.maps.InfoWindow(), parkMarker, i;
+    
+    var latMin = <%= @neighborhood.lat %> - 0.03;
+    var latMax = <%= @neighborhood.lat %> + 0.03;
+    var lngMin = <%= @neighborhood.lng %> - 0.03;
+    var lngMax = <%= @neighborhood.lng %> + 0.03;
+    
+    
+    for (i = 0; i < parks.length; i++ ){
+      //IF STATEMENT FILTERS OUT PARKS THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
+      
+      console.log(i);
+      if(parks[i][1] !== undefined){
+        var parkLat = parks[i][1].latitude; 
+        var parkLng = parks[i][1].longitude;
+      
+        if (parkLat >= latMin && parkLat <= latMax && parkLng >= lngMin && parkLng <= lngMax ){
+          parkMarker = new google.maps.Marker({
+            position: new google.maps.LatLng(parks[i][1].latitude, parks[i][1].longitude),
+            map: map,
+            icon: '../assets/treeMarker.png'
+          });
+          
+          
+          google.maps.event.addListener(parkMarker, 'click', (function(parkMarker, i) {
+              return function() {
+                  parkInfoWindow.setContent(parks[i][0] + ' Park');
+                  parkInfoWindow.open(map, parkMarker);
+              }
+          })(parkMarker, i));
+          
+          
+          
+          
+        }
+      }
+      
+      
     }
     
     
