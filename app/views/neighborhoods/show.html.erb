@@ -42,7 +42,7 @@
   var fireStations  = [], fireStationMarker, fireInfoWindow, fireLat, fireLng;
   var libraries = [], libraryMarker, libraryInfoWindow, libraryLat, libraryLng;
   var parks = [], parkMarker, parkInfoWindow, parkLat, parkLng;
-  var organizations = [], organizationMarker, organizationInfoWindow, organizationLat, organizationLng;
+  var organizations = [["Inner-City Muslim Action Network", 41.779325, -87.692793],["Greater Southwest Development Center", 41.778946, -87.688732],["Metropolitan Family Services", 41.882275, -87.629036]], organizationMarker, organizationInfoWindow, organizationLat, organizationLng;
   // var hospitals = [];
   // var schools = [];
   //USED TO CREATE RANGE AROUND COMMUNITY AREA. THIS IS TO DISPLAY MARKERS AROUND COMMUNITY AREA
@@ -171,9 +171,6 @@
     
     
     
-    
-    
-    
     //USED TO PLACE POLICE STATION MARKERS
     policeInfoWindow = new google.maps.InfoWindow(), policeMarker, i;
     
@@ -282,6 +279,38 @@
       
     }
     
+    //USED TO ORGANIZATIONS.
+    organizationInfoWindow = new google.maps.InfoWindow(), parkMarker, i;
+    
+    for (i = 0; i < organizations.length; i++ ){
+      //IF STATEMENT FILTERS OUT PARKS THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
+  
+      organizationLat = organizations[i][1]; 
+      organizationsLng = organizations[i][2];
+    
+      if (organizationLat >= latMin && organizationLat <= latMax && organizationsLng >= lngMin && organizationsLng <= lngMax ){
+        organizationMarker = new google.maps.Marker({
+          position: new google.maps.LatLng(organizationLat, organizationsLng),
+          map: map,
+          icon: '../assets/organizationMarker.png'
+        });
+        
+        
+        google.maps.event.addListener(organizationMarker, 'click', (function(organizationMarker, i) {
+            return function() {
+                organizationInfoWindow.setContent(organizations[i][0]);
+                organizationInfoWindow.open(map, organizationMarker);
+            }
+        })(organizationMarker, i));
+        
+        
+        
+        
+      }
+      
+      
+      
+    }
     
     
   }
