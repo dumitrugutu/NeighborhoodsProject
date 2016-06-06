@@ -38,10 +38,10 @@
 <script>
 
   var boundaries; 
-  var policeStations = [], policeMarker, policeInfoWindow;
-  var fireStations  = [], fireStationMarker, fireInfoWindow;
-  var libraries = [], libraryMarker, libraryInfoWindow;
-  var parks = [], parkMarker, parkInfoWindow;
+  var policeStations = [], policeMarker, policeInfoWindow, policeLat, policeLng;
+  var fireStations  = [], fireStationMarker, fireInfoWindow, fireLat, fireLng;
+  var libraries = [], libraryMarker, libraryInfoWindow, libraryLat, libraryLng;
+  var parks = [], parkMarker, parkInfoWindow, parkLat, parkLng;
   // var hospitals = [];
   // var schools = [];
   //USED TO CREATE RANGE AROUND COMMUNITY AREA. THIS IS TO DISPLAY MARKERS AROUND COMMUNITY AREA
@@ -92,7 +92,7 @@
       var library = [];
       data.forEach(function(x){
         library = [];
-        library.push(x.name_, x.location.coordinates[0], x.location.coordinates[1]);
+        library.push(x.name_, x.location.coordinates[1], x.location.coordinates[0]);
         libraries.push(library);
         
       });
@@ -106,7 +106,7 @@
       var fireStation = [];
       data.forEach(function(x){
         fireStation = [];
-        fireStation.push(x.name, x.location.coordinates[0], x.location.coordinates[1]);
+        fireStation.push(x.name, x.location.coordinates[1], x.location.coordinates[0]);
         fireStations.push(fireStation);
         
       });
@@ -121,8 +121,10 @@
       var park = [];
       data.forEach(function(x){
         park = [];
-        park.push(x.park_name, x.location);
-        parks.push(park);
+        if(x.location !== undefined){
+          park.push(x.park_name, x.location.latitude, x.location.longitude);
+          parks.push(park);
+        }
         
       });
     }
@@ -175,38 +177,50 @@
     policeInfoWindow = new google.maps.InfoWindow(), policeMarker, i;
     
     for (i = 0; i < policeStations.length; i++ ){
-      policeMarker = new google.maps.Marker({
-        position: new google.maps.LatLng(policeStations[i][1], policeStations[i][2]),
-        map: map,
-        icon: '../assets/policeMarker.png'
-      });
+      //IF STATEMENT FILTERS OUT POLICE STATIONS THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
+      policeLat = policeStations[i][1];
+      policeLng = policeStations[i][2];
+      if(policeLat >= latMin && policeLat <= latMax && policeLng >= lngMin && policeLng <= lngMax){
+        policeMarker = new google.maps.Marker({
+          position: new google.maps.LatLng(policeLat, policeLng),
+          map: map,
+          icon: '../assets/policeMarker.png'
+        });
+        
+        
+        google.maps.event.addListener(policeMarker, 'click', (function(policeMarker, i) {
+            return function() {
+                policeInfoWindow.setContent(policeStations[i][0] + ' Police Station');
+                policeInfoWindow.open(map, policeMarker);
+            }
+        })(policeMarker, i));
+      }
       
-      
-      google.maps.event.addListener(policeMarker, 'click', (function(policeMarker, i) {
-          return function() {
-              policeInfoWindow.setContent(policeStations[i][0] + ' Police Station');
-              policeInfoWindow.open(map, policeMarker);
-          }
-      })(policeMarker, i));
     }
     
     //USED TO PLACE LIBRARY MARKERS 
     libraryInfoWindow = new google.maps.InfoWindow(), libraryMarker, i;
     
     for (i = 0; i < libraries.length; i++ ){
-      libraryMarker = new google.maps.Marker({
-        position: new google.maps.LatLng(libraries[i][2], libraries[i][1]),
-        map: map,
-        icon: '../assets/libraryMarker.png'
-      });
+      //IF STATEMENT FILTERS OUT LIBRARIES THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
+      libraryLat = libraries[i][1];
+      libraryLng = libraries[i][2];
+      if(libraryLat >= latMin && libraryLat <= latMax && libraryLng >= lngMin && libraryLng <= lngMax){
+        libraryMarker = new google.maps.Marker({
+          position: new google.maps.LatLng(libraryLat, libraryLng),
+          map: map,
+          icon: '../assets/libraryMarker.png'
+        });
+        
+        
+        google.maps.event.addListener(libraryMarker, 'click', (function(libraryMarker, i) {
+            return function() {
+                libraryInfoWindow.setContent(libraries[i][0] + ' Public Library');
+                libraryInfoWindow.open(map, libraryMarker);
+            }
+        })(libraryMarker, i));
+      }
       
-      
-      google.maps.event.addListener(libraryMarker, 'click', (function(libraryMarker, i) {
-          return function() {
-              libraryInfoWindow.setContent(libraries[i][0] + ' Public Library');
-              libraryInfoWindow.open(map, libraryMarker);
-          }
-      })(libraryMarker, i));
     }
     
     //USED TO PLACE FIRESTATION MARKERS 
@@ -214,11 +228,11 @@
     
     for (i = 0; i < fireStations.length; i++ ){
       //IF STATEMENT FILTERS OUT FIRE STATIONS THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
-      var fireLat = fireStations[i][2];
-      var fireLng = fireStations[i][1];
+      fireLat = fireStations[i][1];
+      fireLng = fireStations[i][2];
       if(fireLat >= latMin && fireLat <= latMax && fireLng >= lngMin && fireLng <= lngMax){
         fireStationMarker = new google.maps.Marker({
-          position: new google.maps.LatLng(fireStations[i][2], fireStations[i][1]),
+          position: new google.maps.LatLng(fireLat, fireLng),
           map: map,
           icon: '../assets/fireMarker.png'
         });
@@ -239,31 +253,30 @@
     
     for (i = 0; i < parks.length; i++ ){
       //IF STATEMENT FILTERS OUT PARKS THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
-      
-      if(parks[i][1] !== undefined){
-        var parkLat = parks[i][1].latitude; 
-        var parkLng = parks[i][1].longitude;
-      
-        if (parkLat >= latMin && parkLat <= latMax && parkLng >= lngMin && parkLng <= lngMax ){
-          parkMarker = new google.maps.Marker({
-            position: new google.maps.LatLng(parks[i][1].latitude, parks[i][1].longitude),
-            map: map,
-            icon: '../assets/treeMarker.png'
-          });
-          
-          
-          google.maps.event.addListener(parkMarker, 'click', (function(parkMarker, i) {
-              return function() {
-                  parkInfoWindow.setContent(parks[i][0] + ' Park');
-                  parkInfoWindow.open(map, parkMarker);
-              }
-          })(parkMarker, i));
-          
-          
-          
-          
-        }
+  
+      parkLat = parks[i][1]; 
+      parkLng = parks[i][2];
+    
+      if (parkLat >= latMin && parkLat <= latMax && parkLng >= lngMin && parkLng <= lngMax ){
+        parkMarker = new google.maps.Marker({
+          position: new google.maps.LatLng(parkLat, parkLng),
+          map: map,
+          icon: '../assets/treeMarker.png'
+        });
+        
+        
+        google.maps.event.addListener(parkMarker, 'click', (function(parkMarker, i) {
+            return function() {
+                parkInfoWindow.setContent(parks[i][0] + ' Park');
+                parkInfoWindow.open(map, parkMarker);
+            }
+        })(parkMarker, i));
+        
+        
+        
+        
       }
+      
       
       
     }
