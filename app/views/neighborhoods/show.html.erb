@@ -12,7 +12,8 @@
                     <ul class="group_rep_event">
                       <li> <%= event.name %> </li>
                       <li> <%= event.location %> </li>
-                      <li>Is the event free? <%= event.is_free? %> </li>
+                      <!--The free option has minor bug which denies value to be false. Once bug is fixed li below will have comment marks removed -->
+                      <!--<li>Is the event free? <%= event.is_free? %> </li>-->
 
                     </ul>
                   <% end %>
