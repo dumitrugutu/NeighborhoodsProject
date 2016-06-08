@@ -3,21 +3,24 @@
 
     <!--first half of screen-->
     <div class="col-sm-6" id="firstHalf">
-      <div class="neighborhood_show">
+      <div class="neighborhoodShow">
         <h3> <%= @neighborhood.name %> </h3>
 
           <% @neighborhood.groups.each do |group| %>
               <% group.group_reps.each do |group_rep| %>
                   <% group_rep.events.each do |event| %>
-                    <ul class="group_rep_event">
-                      <li><%= event.name %> </li>
-                      <li>Where: <%= event.location %> </li>
-                      <li>When: <%= event.event_time.strftime("%A - %b %d, %Y") %></li>
-                      <li>Time: <%= event.event_time.strftime("%l:%M %P") %></li>
-                      <li>For more information please contact <%= event.group_rep.name %>: <%= event.organizer_contact_info %> </li>
-                      <!--The free option has minor bug which denies value to be false. Once bug is fixed li below will have comment marks removed -->
-                      <!--<li>Price? <%= event.is_free? %> </li>-->
-                    </ul>
+                    <div class="eventContainer">
+                      <ul class="group_rep_event">
+                        <li><%= event.name %></li>
+                        <li>Where: <%= event.location %> </li>
+                        <li>When: <%= event.event_time.strftime("%A - %b %d, %Y") %></li>
+                        <li>Time: <%= event.event_time.strftime("%l:%M %P") %></li>
+                        <li>For more information please contact <%= event.group_rep.name %>: <%= event.organizer_contact_info %> </li>
+                        <!--The free option has minor bug which denies value to be false. Once bug is fixed li below will have comment marks removed -->
+                        <!--<li>Price: <%= event.is_free? %> </li>-->
+                      </ul>
+                    </div>
+                    
                   <% end %>
               <% end %>
 
