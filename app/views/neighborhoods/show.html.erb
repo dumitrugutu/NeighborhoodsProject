@@ -4,8 +4,14 @@
     <!--first half of screen-->
     <div class="col-sm-6" id="firstHalf">
       <div class="neighborhoodShow">
-        <h3> <%= @neighborhood.name %> </h3>
-
+        
+        <div id="eventListHeader">
+          <h2 class="text-center title"> <%= @neighborhood.name %> </h2>
+          <h4 class="text-center">Events</h4>
+        </div>
+        
+        <div id="eventListBody">
+          <% events = 0 %>
           <% @neighborhood.groups.each do |group| %>
               <% group.group_reps.each do |group_rep| %>
                   <% group_rep.events.each do |event| %>
@@ -16,15 +22,24 @@
                         <li>When: <%= event.event_time.strftime("%A - %b %d, %Y") %></li>
                         <li>Time: <%= event.event_time.strftime("%l:%M %P") %></li>
                         <li>For more information please contact <%= event.group_rep.name %>: <%= event.organizer_contact_info %> </li>
-                        <!--The free option has minor bug which denies value to be false. Once bug is fixed li below will have comment marks removed -->
-                        <!--<li>Price: <%= event.is_free? %> </li>-->
+                        <li>Price: <%= event.is_free? %> </li>
                       </ul>
                     </div>
                     
-                  <% end %>
+                  <% events += 1 end %>
               <% end %>
 
           <% end %>
+          <!--no events message -->
+          <% if events == 0 %>
+            <div id="errorMessage" class="text-center">
+              <h4>No Events Posted At This Time</h4>
+              <h5>Please Check Again Later </h5>
+            </div>
+            
+          <% end %>
+        </div>
+          
 
       </div>
     </div>
@@ -36,8 +51,6 @@
 
   </div> <!--end of masterRow-->
 </div> <!--end of container-->
-
-
 
 
 <!--js to render google map -->
@@ -327,3 +340,4 @@
 
 <!--google maps api link -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD9bgTM6mZMkfpii73l5lUwTHfMq8N2zos&callback=initMap" async defer></script>
+
