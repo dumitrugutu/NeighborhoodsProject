@@ -3,7 +3,7 @@
   
   <div class="neighborhoods_list text-center">
     <ul>
-      <% @neighborhoods.each do |neighborhood| %>
+      <% @neighborhoods.sort_by{ |m| m.name.downcase }.each do |neighborhood| %>
         <a href="/neighborhoods/<%= neighborhood.id %>">
         <li class="neighborhood"><%= neighborhood.name %></li>
         </a>
