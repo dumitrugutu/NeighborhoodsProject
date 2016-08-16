@@ -1,21 +1,17 @@
-<div class="container-fluid">
-  <div class="row" id="masterRow">
-
-    <!--first half of screen-->
-    <div class="col-sm-6" id="firstHalf">
-      <div class="neighborhoods_list">
-        <h3> Oops, that search term didn't return any neighborhoods.  Here is a list of all the neighborhoods. </h3>
-        <ul>
-          <% @neighborhoods.each do |neighborhood| %>
-            <li class="neighborhood"> <a href= "/neighborhoods/<%= neighborhood.id %>"> <%= neighborhood.name %> </a> </li>
-          <% end %>
-        </ul>
-      </div>
-
-
-    </div>
+<div class="container-fluid" id="errorPage">
+  <h3 class="text-center" id="errorMessage">Oops, that search term didn't return any neighborhoods. Here is a list of all the neighborhoods.</h3>
+  
+  <div class="neighborhoods_list text-center">
+    <ul>
+      <% @neighborhoods.sort_by{ |m| m.name.downcase }.each do |neighborhood| %>
+        <a href="/neighborhoods/<%= neighborhood.id %>">
+        <li class="neighborhood"><%= neighborhood.name %></li>
+        </a>
+      <% end %>
+    </ul>
+  </div>
 
 
-
-  </div> <!--end of masterRow-->
+    
+  
 </div> <!--end of container-->
