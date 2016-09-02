@@ -1,0 +1,140 @@
+///////////////////////////////////////////////
+///////// STYLING FOR ALL EVENT VIEWS /////////
+///////////////////////////////////////////////
+
+///////////////////////////////////////////////
+/// views/events/index.html.erb
+
+#indexContainer{
+    min-height: 90vh;
+    #toolSidebar{
+        min-height: 90vh;
+        background: #525254;
+        padding: 0;
+        #sidebarHeader{
+            background: #d10000;
+            color: white;
+            height: 100px;
+            padding-top: 40px;
+            h4{
+                margin: 0;
+            }
+        }
+        .btnSquare{
+            padding-top: 10px;
+            height: 90px;
+            img{
+                height: 40px;
+            }
+        }
+        .activeBtnSquare{
+            color: #373739;
+            background: white;
+            -webkit-box-shadow: 0px 1px 9px 0px rgba(0,0,0,0.75);
+            -moz-box-shadow: 0px 1px 9px 0px rgba(0,0,0,0.75);
+            box-shadow: 0px 1px 9px 0px rgba(0,0,0,0.75);
+        }
+        .deactiveBtnSquare{
+            color: white;
+            border-top: 1px solid #404042;
+            border-bottom: 1px solid #404042;
+        }
+    }
+    #eventListDisplay{
+        color: white;
+        min-height: 90vh;
+        background: #7a7b7f;
+        padding: 0;
+        h2{
+            margin-bottom: 20px;
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+        #eventsUl{
+            list-style-type: none;
+            padding: 0;
+            a{
+                color: white;
+                &:hover{
+                    text-decoration: none;
+                }
+                li{
+                    background: #66676a;
+                    padding: 8px 0 8px 40px;
+                    width: 100%;
+                    border-top: 1px solid #595a5d;
+                    &:hover{
+                        background: #525254;
+                        cursor: pointer;
+                    }
+                }
+            }
+            
+        }
+        #plusLogo{
+            height: 30px;
+            margin-right: 10px;
+        }
+    }
+    #editInfoDisplay{
+        min-height: 90vh;
+        background: #fff;
+        position: relative;
+        .messageBox{
+            color: #919091;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}
+///////////////////////////////////////////////
+/// views/events/new.html.erb
+#formContainer{
+    margin-top: 30px;
+    margin-left: 2%;
+    #formHeader{
+        padding-left: 15px;
+        color: #616061;
+    }
+    #formBody{
+        background: #f1f1f1;
+        width: 48%;
+        color: #919091;
+        padding: 15px;
+        #createBtn{
+            background: #69a541;
+            color: white;
+        }
+    }
+}
+///////////////////////////////////////////////
+/// views/events/show.html.erb
+#showEventContainer{
+    margin-top: 30px;
+    margin-left: 2%;
+    table{
+        width: 48%;
+    }
+}
+///////////////////////////////////////////////
+/// views/events/edit.html.erb
+#formContainerEdit{
+    margin-top: 30px;
+    margin-left: 2%;
+    #formHeaderEdit{
+        padding-left: 15px;
+        color: #616061;
+    }
+    #formBodyEdit{
+        background: #f1f1f1;
+        width: 48%;
+        color: #919091;
+        padding: 15px;
+        #updateBtn{
+            background: #69a541;
+            color: white;
+        }
+    }
+}

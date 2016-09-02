@@ -23,13 +23,8 @@
         <div class="col-xs-6 text-right" id="actionContainer">
           <% if current_group_rep %>
             <button>
-              <%= link_to "Manage Events", group_rep_events_path(current_group_rep.id) %>
+              <%= link_to "Manager", group_rep_events_path(current_group_rep.id) %>
             </button>
-            <% if current_group_rep.admin == true %>
-              <button>
-                <%= link_to "Admin Dashboard", rails_admin_path %>
-              </button>
-            <% end %>
             
             <button>
               <%= link_to "Logout", destroy_group_rep_session_path, method: :delete %>
