@@ -11,7 +11,7 @@
   .neighborhoodShow{
     #eventListHeader{
       color: #fff;
-      background: #d10000;
+      background: #E0AF3C;
       margin-top: 14px;
       padding: 5px;
       border-top-right-radius: 20px;
@@ -19,7 +19,7 @@
     }
     #eventListBody{
       height: 480px;
-      background: #ddd;
+      background: #a3a6a9;
       padding-bottom: 20px;
       border-bottom-right-radius: 20px;
       border-bottom-left-radius: 20px;
@@ -34,8 +34,13 @@
           list-style-type: none;
           //first child is event title
           li:first-child{
-            color: #d10000;
-            font-size: 20px;
+            // color: #E0AF3C;
+            font-size: 25px;
+            margin-bottom: 10px;
+            
+          }
+          li{
+            color: white;
           }
           //last child is event's additional contact info
           li:last-child{

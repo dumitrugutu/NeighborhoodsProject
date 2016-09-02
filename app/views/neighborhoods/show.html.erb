@@ -21,8 +21,10 @@
                         <li>Where: <%= event.location %> </li>
                         <li>When: <%= event.event_time.strftime("%A - %b %d, %Y") %></li>
                         <li>Time: <%= event.event_time.strftime("%l:%M %P") %></li>
+                        <!--price still has bug-->
+                        <!--<li>Price: <%= event.is_free? %> </li>-->
                         <li>For more information please contact <%= event.group_rep.name %>: <%= event.organizer_contact_info %> </li>
-                        <li>Price: <%= event.is_free? %> </li>
+                        
                       </ul>
                     </div>
                     
