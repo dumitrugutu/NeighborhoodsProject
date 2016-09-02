@@ -2,25 +2,69 @@
   <head></head>
   
   <body>
-    <h2>Placeholder For Group Rep's Events</h2>
+    <div class="container-fluid" id="indexContainer">
+      <div class="row">
+        
+        <div class="col-sm-1 text-center" id="toolSidebar">
+          <!--header square -->
+          <div id="sidebarHeader">
+            <h4>Manager</h4>
+          </div>
+          <!--buttons square-->
+          <div class="activeBtnSquare btnSquare">
+            <img src="<%= image_path('activeEventsIcon.png') %>" class="img-responsive center-block">
+            <h5>Events</h5>
+          </div>
+          <% if current_group_rep.admin == true %>
+            <%= link_to rails_admin_path do %>
+            <div class="deactiveBtnSquare btnSquare">
+              <img src="<%= image_path('deactiveAdminIcon.png') %>" class="img-responsive center-block">
+              <h5>Admin</h5>
+            </div>
+            <% end %>
+          <% end %>
+        </div>
+        
+        <div class="col-sm-3" id="eventListDisplay">
+          <h2>All Events</h2>
+          <ul id="eventsUl">
+            <% @events.each do |event| %>
+              <%= link_to group_rep_event_path(params[:group_rep_id], event.id) do %>
+                <li><%= event.name %></li>
+              <% end %>
+            <% end %>
+          </ul>
+          <%= link_to new_group_rep_event_path(params[:group_rep_id])  do %>
+            <img src="<%= image_path('plusIcon.png') %>" class="pull-right" id="plusLogo">
+          <% end %>
+          
+        </div>
+        
+        <div class="col-sm-8 text-center" id="editInfoDisplay">
+          <div class="messageBox">
+            <h4>Click On An Event To Edit</h4>
+            <h6><em>Manager Beta Version</em></h6>
+          </div>
+          
+        </div>
+      </div>
+    </div>
     
-    <table>
-      <tr>
-        <th>Event</th>
-        <th>Location</th>
-        <th>Time</th>
-      </tr>
-      <% @events.each do |event| %>
-      <tr>
-        <td><%= link_to event.name, group_rep_event_path(params[:group_rep_id], event.id) %></td>
-        <td><%= event.location %></td>
-        <td><%= event.event_time %></td>
-      </tr>
-      <% end %>
-    </table>
     
-    <br/>
+    <!--<table>-->
+    <!--  <tr>-->
+    <!--    <th>Event</th>-->
+    <!--    <th>Location</th>-->
+    <!--    <th>Time</th>-->
+    <!--  </tr>-->
+    <!--  <% @events.each do |event| %>-->
+    <!--  <tr>-->
+    <!--    <td><%= link_to event.name, group_rep_event_path(params[:group_rep_id], event.id) %></td>-->
+    <!--    <td><%= event.location %></td>-->
+    <!--    <td><%= event.event_time %></td>-->
+    <!--  </tr>-->
+    <!--  <% end %>-->
+    <!--</table>-->
     
-    <%= link_to 'Create new event', new_group_rep_event_path(params[:group_rep_id]) %>
   </body>
 </html>
