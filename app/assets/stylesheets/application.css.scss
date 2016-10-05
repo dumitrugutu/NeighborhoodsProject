@@ -16,6 +16,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import url(https://fonts.googleapis.com/css?family=Homemade+Apple);
+@import 'https://fonts.googleapis.com/css?family=Fugaz+One';
 
 /************* GENERAL STYLING *************/
 body{
@@ -42,6 +43,13 @@ body{
     #redCursive{
       font-family: 'Homemade Apple', cursive;
       color: #E0AF3C;
+    }
+    #betaTitle{
+      font-family: 'Fugaz One', cursive;
+      color: #5b90bb;
+      font-size: 15px;
+      position: absolute;
+      margin-left: 9px;
     }
   }
   #actionContainer{
