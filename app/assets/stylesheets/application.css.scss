@@ -66,8 +66,7 @@ body{
     }
     button{
       background-color: rgba(0,0,0,0.0);
-      min-height: 50px;
-      height: 8vh;
+      height: 60px;
       border: none;
       
       &:hover{
@@ -85,7 +84,7 @@ body{
   background-image: linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.3)), url('chicago2.jpg');
   background-size: cover;
   background-position: 50% 20%;
-  height: 94vh;
+  height: 100vh;
   
     
   #searchContainer{
