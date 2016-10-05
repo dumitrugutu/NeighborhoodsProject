@@ -59,9 +59,9 @@
 <script>
 
   var boundaries; 
-  var policeStations = [], policeMarker, policeInfoWindow, policeLat, policeLng;
-  var fireStations  = [], fireStationMarker, fireInfoWindow, fireLat, fireLng;
-  var libraries = [], libraryMarker, libraryInfoWindow, libraryLat, libraryLng;
+  // var policeStations = [], policeMarker, policeInfoWindow, policeLat, policeLng;
+  // var fireStations  = [], fireStationMarker, fireInfoWindow, fireLat, fireLng;
+  // var libraries = [], libraryMarker, libraryInfoWindow, libraryLat, libraryLng;
   var parks = [], parkMarker, parkInfoWindow, parkLat, parkLng;
   var organizations = [["Inner-City Muslim Action Network", 41.779325, -87.692793],["Greater Southwest Development Center", 41.778946, -87.688732],["Metropolitan Family Services", 41.882275, -87.629036]], organizationMarker, organizationInfoWindow, organizationLat, organizationLng;
   // var hospitals = [];
@@ -93,48 +93,48 @@
     }
   });
   //ajax call to get police stations for searched community 
-  $.ajax({
-    url: "https://data.cityofchicago.org/resource/9rg7-mz9y.json", 
-    async: false,
-    success: function(data){
-      var station = [];
-      data.forEach(function(x){
-        station = [];
-        station.push(x.district_name, parseFloat(x.latitude), parseFloat(x.longitude));
-        policeStations.push(station);
+  // $.ajax({
+  //   url: "https://data.cityofchicago.org/resource/9rg7-mz9y.json", 
+  //   async: false,
+  //   success: function(data){
+  //     var station = [];
+  //     data.forEach(function(x){
+  //       station = [];
+  //       station.push(x.district_name, parseFloat(x.latitude), parseFloat(x.longitude));
+  //       policeStations.push(station);
         
-      }); 
-    }
-  });
+  //     }); 
+  //   }
+  // });
   //ajax call to get libraries for searched community
-  $.ajax({
-    url: "https://data.cityofchicago.org/resource/psqp-6rmg.json", 
-    async: false,
-    success: function(data){
-      var library = [];
-      data.forEach(function(x){
-        library = [];
-        library.push(x.name_, x.location.coordinates[1], x.location.coordinates[0]);
-        libraries.push(library);
+  // $.ajax({
+  //   url: "https://data.cityofchicago.org/resource/psqp-6rmg.json", 
+  //   async: false,
+  //   success: function(data){
+  //     var library = [];
+  //     data.forEach(function(x){
+  //       library = [];
+  //       library.push(x.name_, x.location.coordinates[1], x.location.coordinates[0]);
+  //       libraries.push(library);
         
-      });
-    }
-  });
+  //     });
+  //   }
+  // });
   //ajax call to get fire stations for searched community
-  $.ajax({
-    url: "https://data.cityofchicago.org/resource/b4bk-rjxe.json", 
-    async: false,
-    success: function(data){
-      var fireStation = [];
-      data.forEach(function(x){
-        fireStation = [];
-        fireStation.push(x.name, x.location.coordinates[1], x.location.coordinates[0]);
-        fireStations.push(fireStation);
+  // $.ajax({
+  //   url: "https://data.cityofchicago.org/resource/b4bk-rjxe.json", 
+  //   async: false,
+  //   success: function(data){
+  //     var fireStation = [];
+  //     data.forEach(function(x){
+  //       fireStation = [];
+  //       fireStation.push(x.name, x.location.coordinates[1], x.location.coordinates[0]);
+  //       fireStations.push(fireStation);
         
-      });
+  //     });
       
-    }
-  });
+  //   }
+  // });
   //ajax call to get parks for searched community 
   $.ajax({
     url: "https://data.cityofchicago.org/resource/2eaw-bdhe.json", 
@@ -193,79 +193,79 @@
     
     
     //USED TO PLACE POLICE STATION MARKERS
-    policeInfoWindow = new google.maps.InfoWindow(), policeMarker, i;
+    // policeInfoWindow = new google.maps.InfoWindow(), policeMarker, i;
     
-    for (i = 0; i < policeStations.length; i++ ){
-      //IF STATEMENT FILTERS OUT POLICE STATIONS THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
-      policeLat = policeStations[i][1];
-      policeLng = policeStations[i][2];
-      if(policeLat >= latMin && policeLat <= latMax && policeLng >= lngMin && policeLng <= lngMax){
-        policeMarker = new google.maps.Marker({
-          position: new google.maps.LatLng(policeLat, policeLng),
-          map: map,
-          icon: '../assets/policeMarker.png'
-        });
+    // for (i = 0; i < policeStations.length; i++ ){
+    //   //IF STATEMENT FILTERS OUT POLICE STATIONS THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
+    //   policeLat = policeStations[i][1];
+    //   policeLng = policeStations[i][2];
+    //   if(policeLat >= latMin && policeLat <= latMax && policeLng >= lngMin && policeLng <= lngMax){
+    //     policeMarker = new google.maps.Marker({
+    //       position: new google.maps.LatLng(policeLat, policeLng),
+    //       map: map,
+    //       icon: '../assets/policeMarker.png'
+    //     });
         
         
-        google.maps.event.addListener(policeMarker, 'click', (function(policeMarker, i) {
-            return function() {
-                policeInfoWindow.setContent(policeStations[i][0] + ' Police Station');
-                policeInfoWindow.open(map, policeMarker);
-            }
-        })(policeMarker, i));
-      }
+    //     google.maps.event.addListener(policeMarker, 'click', (function(policeMarker, i) {
+    //         return function() {
+    //             policeInfoWindow.setContent(policeStations[i][0] + ' Police Station');
+    //             policeInfoWindow.open(map, policeMarker);
+    //         }
+    //     })(policeMarker, i));
+    //   }
       
-    }
+    // }
     
     //USED TO PLACE LIBRARY MARKERS 
-    libraryInfoWindow = new google.maps.InfoWindow(), libraryMarker, i;
+    // libraryInfoWindow = new google.maps.InfoWindow(), libraryMarker, i;
     
-    for (i = 0; i < libraries.length; i++ ){
-      //IF STATEMENT FILTERS OUT LIBRARIES THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
-      libraryLat = libraries[i][1];
-      libraryLng = libraries[i][2];
-      if(libraryLat >= latMin && libraryLat <= latMax && libraryLng >= lngMin && libraryLng <= lngMax){
-        libraryMarker = new google.maps.Marker({
-          position: new google.maps.LatLng(libraryLat, libraryLng),
-          map: map,
-          icon: '../assets/libraryMarker.png'
-        });
+    // for (i = 0; i < libraries.length; i++ ){
+    //   //IF STATEMENT FILTERS OUT LIBRARIES THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
+    //   libraryLat = libraries[i][1];
+    //   libraryLng = libraries[i][2];
+    //   if(libraryLat >= latMin && libraryLat <= latMax && libraryLng >= lngMin && libraryLng <= lngMax){
+    //     libraryMarker = new google.maps.Marker({
+    //       position: new google.maps.LatLng(libraryLat, libraryLng),
+    //       map: map,
+    //       icon: '../assets/libraryMarker.png'
+    //     });
         
         
-        google.maps.event.addListener(libraryMarker, 'click', (function(libraryMarker, i) {
-            return function() {
-                libraryInfoWindow.setContent(libraries[i][0] + ' Public Library');
-                libraryInfoWindow.open(map, libraryMarker);
-            }
-        })(libraryMarker, i));
-      }
+    //     google.maps.event.addListener(libraryMarker, 'click', (function(libraryMarker, i) {
+    //         return function() {
+    //             libraryInfoWindow.setContent(libraries[i][0] + ' Public Library');
+    //             libraryInfoWindow.open(map, libraryMarker);
+    //         }
+    //     })(libraryMarker, i));
+    //   }
       
-    }
+    // }
     
     //USED TO PLACE FIRESTATION MARKERS 
-    fireInfoWindow = new google.maps.InfoWindow(), fireStationMarker, i;
+    // fireInfoWindow = new google.maps.InfoWindow(), fireStationMarker, i;
     
-    for (i = 0; i < fireStations.length; i++ ){
-      //IF STATEMENT FILTERS OUT FIRE STATIONS THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
-      fireLat = fireStations[i][1];
-      fireLng = fireStations[i][2];
-      if(fireLat >= latMin && fireLat <= latMax && fireLng >= lngMin && fireLng <= lngMax){
-        fireStationMarker = new google.maps.Marker({
-          position: new google.maps.LatLng(fireLat, fireLng),
-          map: map,
-          icon: '../assets/fireMarker.png'
-        });
+    // for (i = 0; i < fireStations.length; i++ ){
+    //   //IF STATEMENT FILTERS OUT FIRE STATIONS THAT ARE FARTHER THAN 10 MILES AWAY FROM NEIGHBORHOOD CENTER(I.E THE LAT AND LNG OF A COMMUNITY AREA)
+    //   fireLat = fireStations[i][1];
+    //   fireLng = fireStations[i][2];
+    //   if(fireLat >= latMin && fireLat <= latMax && fireLng >= lngMin && fireLng <= lngMax){
+    //     fireStationMarker = new google.maps.Marker({
+    //       position: new google.maps.LatLng(fireLat, fireLng),
+    //       map: map,
+    //       icon: '../assets/fireMarker.png'
+    //     });
         
         
-        google.maps.event.addListener(fireStationMarker, 'click', (function(fireStationMarker, i) {
-            return function() {
-                fireInfoWindow.setContent(fireStations[i][0] + ' Fire Station');
-                fireInfoWindow.open(map, fireStationMarker);
-            }
-        })(fireStationMarker, i));
-      }
+    //     google.maps.event.addListener(fireStationMarker, 'click', (function(fireStationMarker, i) {
+    //         return function() {
+    //             fireInfoWindow.setContent(fireStations[i][0] + ' Fire Station');
+    //             fireInfoWindow.open(map, fireStationMarker);
+    //         }
+    //     })(fireStationMarker, i));
+    //   }
       
-    }
+    // }
     
     //USED TO PLACE PARKS.
     parkInfoWindow = new google.maps.InfoWindow(), parkMarker, i;
