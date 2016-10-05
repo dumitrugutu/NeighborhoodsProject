@@ -110,7 +110,18 @@ body{
       }
       
     }
-    
+    button{
+      margin-top: 20px;
+      background-color: rgba(0,0,0,0.6);
+      border: 2px solid #c6c6c6;
+      color: #c6c6c6;
+      &:hover{
+        background-color: rgba(0,0,0,0.9);
+      }
+      &:focus{
+        outline: 0;
+      }
+    }
    
     
   }
