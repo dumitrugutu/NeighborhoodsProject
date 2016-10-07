@@ -64,8 +64,7 @@
   // var libraries = [], libraryMarker, libraryInfoWindow, libraryLat, libraryLng;
   var parks = [], parkMarker, parkInfoWindow, parkLat, parkLng;
   var organizations = [["Inner-City Muslim Action Network", 41.779325, -87.692793],["Greater Southwest Development Center", 41.778946, -87.688732],["Metropolitan Family Services", 41.882275, -87.629036]], organizationMarker, organizationInfoWindow, organizationLat, organizationLng;
-  // var hospitals = [];
-  // var schools = [];
+
   //USED TO CREATE RANGE AROUND COMMUNITY AREA. THIS IS TO DISPLAY MARKERS AROUND COMMUNITY AREA
   var latMin = <%= @neighborhood.lat %> - 0.03;
   var latMax = <%= @neighborhood.lat %> + 0.03;
@@ -92,7 +91,7 @@
       
     }
   });
-  //ajax call to get police stations for searched community 
+  // // ajax call to get police stations for searched community 
   // $.ajax({
   //   url: "https://data.cityofchicago.org/resource/9rg7-mz9y.json", 
   //   async: false,
@@ -106,7 +105,7 @@
   //     }); 
   //   }
   // });
-  //ajax call to get libraries for searched community
+  // // ajax call to get libraries for searched community
   // $.ajax({
   //   url: "https://data.cityofchicago.org/resource/psqp-6rmg.json", 
   //   async: false,
@@ -120,7 +119,7 @@
   //     });
   //   }
   // });
-  //ajax call to get fire stations for searched community
+  // // ajax call to get fire stations for searched community
   // $.ajax({
   //   url: "https://data.cityofchicago.org/resource/b4bk-rjxe.json", 
   //   async: false,
@@ -144,7 +143,7 @@
       data.forEach(function(x){
         park = [];
         if(x.location !== undefined){
-          park.push(x.park_name, x.location.latitude, x.location.longitude);
+          park.push(x.park_name, x.location.latitude, x.location.longitude, x.street_address);
           parks.push(park);
         }
         
@@ -192,7 +191,7 @@
     
     
     
-    //USED TO PLACE POLICE STATION MARKERS
+    // USED TO PLACE POLICE STATION MARKERS
     // policeInfoWindow = new google.maps.InfoWindow(), policeMarker, i;
     
     // for (i = 0; i < policeStations.length; i++ ){
@@ -217,7 +216,7 @@
       
     // }
     
-    //USED TO PLACE LIBRARY MARKERS 
+    // USED TO PLACE LIBRARY MARKERS 
     // libraryInfoWindow = new google.maps.InfoWindow(), libraryMarker, i;
     
     // for (i = 0; i < libraries.length; i++ ){
@@ -242,7 +241,7 @@
       
     // }
     
-    //USED TO PLACE FIRESTATION MARKERS 
+    // USED TO PLACE FIRESTATION MARKERS 
     // fireInfoWindow = new google.maps.InfoWindow(), fireStationMarker, i;
     
     // for (i = 0; i < fireStations.length; i++ ){
@@ -267,6 +266,11 @@
       
     // }
     
+    //javascript function to titleize strings (i.e "first string".toTitleCase -> "First String")
+    function toTitleCase(str){
+      return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    }
+
     //USED TO PLACE PARKS.
     parkInfoWindow = new google.maps.InfoWindow(), parkMarker, i;
     
@@ -275,7 +279,6 @@
   
       parkLat = parks[i][1]; 
       parkLng = parks[i][2];
-    
       if (parkLat >= latMin && parkLat <= latMax && parkLng >= lngMin && parkLng <= lngMax ){
         parkMarker = new google.maps.Marker({
           position: new google.maps.LatLng(parkLat, parkLng),
@@ -286,7 +289,7 @@
         
         google.maps.event.addListener(parkMarker, 'click', (function(parkMarker, i) {
             return function() {
-                parkInfoWindow.setContent(parks[i][0] + ' Park');
+                parkInfoWindow.setContent(toTitleCase(parks[i][0])+' Park<br>'+ toTitleCase(parks[i][3]));
                 parkInfoWindow.open(map, parkMarker);
             }
         })(parkMarker, i));
@@ -300,7 +303,7 @@
       
     }
     
-    //USED TO ORGANIZATIONS.
+    //USED FOR ORGANIZATIONS.
     organizationInfoWindow = new google.maps.InfoWindow(), parkMarker, i;
     
     for (i = 0; i < organizations.length; i++ ){
