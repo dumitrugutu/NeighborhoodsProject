@@ -6,57 +6,50 @@
 
 // EVENTS STYLING: FIRST HALF
 #firstHalf{
-  background-color: #fff;
   height: 91vh;
-  .neighborhoodShow{
-    #eventListHeader{
-      color: #fff;
-      background: #E0AF3C;
-      margin-top: 14px;
-      padding: 5px;
-      border-top-right-radius: 20px;
-      border-top-left-radius: 20px;
+  padding: 0;
+  #eventListHeader{
+    color: #fff;
+    background: #E0AF3C;
+    padding: 5px;
+    h3{
+      margin-top: 10px;
     }
-    #eventListBody{
-      height: 480px;
-      background: #a3a6a9;
-      padding-bottom: 20px;
-      border-bottom-right-radius: 20px;
-      border-bottom-left-radius: 20px;
-      overflow-y: scroll;
-      
-      .eventContainer{
-        padding: 20px 20px 0;
-        
-        ul{
-          padding-left: 0;
-    
-          list-style-type: none;
-          //first child is event title
-          li:first-child{
-            // color: #E0AF3C;
-            font-size: 25px;
-            margin-bottom: 10px;
-            
-          }
-          li{
-            color: white;
-          }
-          //last child is event's additional contact info
-          li:last-child{
-            color: #5f5f5f;
-            font-size: 13px;
-          }
-        }
-        
-      }
-      #errorMessage{
-        padding-top: 30px;
-        color: #5d5c5d;
-      }
-    }
-    
   }
+  #eventListBody{
+    height: 480px;
+    padding-bottom: 20px;
+    overflow-y: scroll;
+    color: #343434;
+    .eventContainer{
+      padding: 20px 20px 0;
+      
+      ul{
+        padding-left: 0;
+  
+        list-style-type: none;
+        //first child is event title
+        li:first-child{
+          // color: #E0AF3C;
+          font-size: 22px;
+          margin-bottom: 10px;
+          
+        }
+        //last child is event's additional contact info
+        li:last-child{
+          color: #5f5f5f;
+          font-size: 13px;
+        }
+      }
+      
+    }
+    #errorMessage{
+      padding-top: 30px;
+      color: #5d5c5d;
+    }
+  }
+    
+  
 }
 // BASIC MAP STYLING: SECOND HALF
 #secondHalf{

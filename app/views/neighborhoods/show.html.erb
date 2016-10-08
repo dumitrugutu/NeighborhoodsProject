@@ -3,47 +3,46 @@
 
     <!--first half of screen-->
     <div class="col-sm-6" id="firstHalf">
-      <div class="neighborhoodShow">
-        
-        <div id="eventListHeader">
-          <h3 class="text-center title">Community Name: <%= @neighborhood.name %> </h3>
-          <h4 class="text-center">Events</h4>
-        </div>
-        
-        <div id="eventListBody">
-          <% events = 0 %>
-          <% @neighborhood.groups.each do |group| %>
-              <% group.group_reps.each do |group_rep| %>
-                  <% group_rep.events.each do |event| %>
-                    <div class="eventContainer">
-                      <ul class="group_rep_event">
-                        <li><%= event.name %></li>
-                        <li>Where: <%= event.location %> </li>
-                        <li>When: <%= event.event_time.strftime("%A - %b %d, %Y") %></li>
-                        <li>Time: <%= event.event_time.strftime("%l:%M %P") %></li>
-                        <!--price still has bug-->
-                        <!--<li>Price: <%= event.is_free? %> </li>-->
-                        <li>For more information please contact <%= event.group_rep.name %>: <%= event.organizer_contact_info %> </li>
-                        
-                      </ul>
-                    </div>
-                    
-                  <% events += 1 end %>
-              <% end %>
+      
+      <div id="eventListHeader">
+        <h3 class="text-center title">Community Name: <%= @neighborhood.name %> </h3>
+      </div>
+      
+      <div id="eventListBody">
+        <h4 class="text-center">Events</h4>
+        <% events = 0 %>
+        <% @neighborhood.groups.each do |group| %>
+            <% group.group_reps.each do |group_rep| %>
+                <% group_rep.events.each do |event| %>
+                  <div class="eventContainer">
+                    <ul class="group_rep_event">
+                      <li><%= event.name %></li>
+                      <li>Where: <%= event.location %> </li>
+                      <li>When: <%= event.event_time.strftime("%A - %b %d, %Y") %></li>
+                      <li>Time: <%= event.event_time.strftime("%l:%M %P") %></li>
+                      <!--price still has bug-->
+                      <!--<li>Price: <%= event.is_free? %> </li>-->
+                      <li>For more information please contact <%= event.group_rep.name %>: <%= event.organizer_contact_info %> </li>
+                      
+                    </ul>
+                  </div>
+                  
+                <% events += 1 end %>
+            <% end %>
 
-          <% end %>
-          <!--no events message -->
-          <% if events == 0 %>
-            <div id="errorMessage" class="text-center">
-              <h4>No Events Posted At This Time</h4>
-              <h5>Please Check Again Later </h5>
-            </div>
-            
-          <% end %>
-        </div>
+        <% end %>
+        <!--no events message -->
+        <% if events == 0 %>
+          <div id="errorMessage" class="text-center">
+            <h4>No Events Posted At This Time</h4>
+            <h5>Please Check Again Later </h5>
+          </div>
+          
+        <% end %>
+      </div>
           
 
-      </div>
+      
     </div>
 
     <!--second half of screen: used for google map display-->
