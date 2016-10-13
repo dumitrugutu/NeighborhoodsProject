@@ -59,3 +59,34 @@
       width: 100%;
     }
 }
+//FOOTER STYLING 
+footer{
+  background-color: #002957;
+  height: 90px;
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding-top: 20px;
+  #footerUl{
+    list-style-type: none;
+    margin-right: auto;
+    margin-left: auto;
+    li{
+      padding: 10px 15px;
+      display: inline-block;
+      text-align: center;
+      border-right: 1px solid white;
+      a{
+        color: white;
+        text-decoration: none;
+        &:hover{
+          color: #b2b3b3;
+          text-decoration: none;
+        }
+      }
+      &:last-child{
+        border-right: none;
+      }
+    }
+  }
+}

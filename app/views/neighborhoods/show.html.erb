@@ -3,11 +3,9 @@
 
     <!--first half of screen-->
     <div class="col-sm-6" id="firstHalf">
-      
       <div id="eventListHeader">
         <h3 class="text-center title">Community Name: <%= @neighborhood.name %> </h3>
       </div>
-      
       <div id="eventListBody">
         <h4 class="text-center">Events</h4>
         <% events = 0 %>
@@ -23,13 +21,10 @@
                       <!--price still has bug-->
                       <!--<li>Price: <%= event.is_free? %> </li>-->
                       <li>For more information please contact <%= event.group_rep.name %>: <%= event.organizer_contact_info %> </li>
-                      
                     </ul>
                   </div>
-                  
                 <% events += 1 end %>
             <% end %>
-
         <% end %>
         <!--no events message -->
         <% if events == 0 %>
@@ -37,21 +32,25 @@
             <h4>No Events Posted At This Time</h4>
             <h5>Please Check Again Later </h5>
           </div>
-          
         <% end %>
       </div>
-          
-
-      
     </div>
+
 
     <!--second half of screen: used for google map display-->
     <div class="col-sm-6" id="secondHalf">
       <div id="map"></div>
     </div>
 
-  </div> <!--end of masterRow-->
+  </div> <!--end of row-->
 </div> <!--end of container-->
+<footer>
+  <ul id="footerUl">
+    <li><a href="#">Privacy Policy</a></li>
+    <li><a href="#">Terms Of Use</a></li>
+    <li><a href="#">FAQ</a></li>
+  </ul>
+</footer>
 
 
 <!--js to render google map -->
