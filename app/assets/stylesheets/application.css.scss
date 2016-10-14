@@ -109,18 +109,25 @@ body{
       }
       
     }
-    button{
-      margin-top: 20px;
-      background-color: rgba(0,0,0,0.6);
-      border: 2px solid #c6c6c6;
-      color: #c6c6c6;
+    #allCommunitiesAtag{
       &:hover{
-        background-color: rgba(0,0,0,0.9);
+        text-decoration: none;
       }
-      &:focus{
-        outline: 0;
+      #allCommunitiesBtn{
+        margin-top: 20px;
+        width: 180px;
+        background-color: rgba(0,0,0,0.6);
+        border: 2px solid #c6c6c6;
+        color: #c6c6c6;
+        &:hover{
+          background-color: rgba(0,0,0,0.9);
+        }
+        &:focus{
+          outline: 0;
+        }
       }
     }
+    
    
     
   }
