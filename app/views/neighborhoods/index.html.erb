@@ -6,11 +6,14 @@
         <%= form_tag search_neighborhoods_path do %>
           <input id="headerSearchBar" name="query" placeholder="search community or parks" type="text" autocomplete="off">
         <% end %>
-        <a href="#" id="allCommunitiesAtag">
+        <!-- <a href="#" id="allCommunitiesAtag">
           <div class="center-block text-center" id="allCommunitiesBtn">
               <h5>View All Communities</h5>
           </div>
-        </a>
+        </a> -->
+        <button class="center-block">
+            <%= link_to "View All Communities", show_all_neighborhoods_path %>
+        </button>
       </div>
     </div>
   </div>
