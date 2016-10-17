@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   get 'neighborhoods/about' => 'neighborhoods#about', as: 'about_neighborhoods'
+  get 'neighborhoods/show_all' => 'neighborhoods#show_all', as: 'show_all_neighborhoods'
   resources :neighborhoods
   #root 'neighborhoods#index'
   root :to => redirect('/neighborhoods')
