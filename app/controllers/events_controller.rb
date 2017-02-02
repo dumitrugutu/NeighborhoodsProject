@@ -24,7 +24,7 @@ class EventsController < ApplicationController
     @event = Event.new(event_params)
     @event.group_rep_id = params[:group_rep_id]
     @event.save
-    
+
     flash[:notice] = "#{@event.name} was created successfully."
     redirect_to group_rep_events_path
   end
@@ -49,11 +49,11 @@ class EventsController < ApplicationController
     params.require(:event).permit(:group_rep_id, :name, :organizer_contact_info,
                                     :event_time, :is_free, :location)
   end
-  
+
   def set_post
     @event = Event.find(params[:id])
   end
-  
+
   def verify_group_rep
     if current_group_rep.id.to_s != params[:group_rep_id]
       redirect_to '/'
