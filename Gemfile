@@ -28,7 +28,6 @@ group :doc do
 end
 
 group :development, :test do
-  gem 'sqlite3'
   gem 'byebug'
   gem 'database_cleaner'
   gem 'capybara', '2.4.4'
@@ -40,6 +39,7 @@ end
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 group :development do
   gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 group :test do
@@ -50,6 +50,7 @@ end
 
 group :production do
   gem 'pg'  # postgresql
+  gem 'rails_12factor'
 end
 
 # Use ActiveModel has_secure_password
