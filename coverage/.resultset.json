@@ -1,27 +1,6 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/helpers/application_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/helpers/events_helper.rb": [
-        1,
-        null,
-        1,
-        0,
-        0,
-        null,
-        0,
-        null,
-        null,
-        null,
-        null
-      ],
-      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/helpers/neighborhoods_helper.rb": [
-        1,
-        null
-      ],
       "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/controllers/events_controller.rb": [
         1,
         1,
@@ -29,7 +8,6 @@
         1,
         null,
         1,
-        0,
         0,
         null,
         null,
@@ -94,82 +72,6 @@
         1,
         null
       ],
-      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/controllers/neighborhoods_controller.rb": [
-        1,
-        1,
-        1,
-        0,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null,
-        null,
-        1,
-        1,
-        1,
-        1,
-        1,
-        0,
-        0,
-        0,
-        null,
-        0,
-        0,
-        null,
-        null,
-        null,
-        1,
-        null,
-        null,
-        null,
-        1,
-        1,
-        1,
-        null,
-        null,
-        null,
-        1,
-        null,
-        1,
-        0,
-        null,
-        null
-      ],
-      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/models/event.rb": [
-        1,
-        1,
-        null,
-        1,
-        null,
-        null
-      ],
-      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/models/group.rb": [
-        1,
-        1,
-        1,
-        1,
-        null,
-        1,
-        null
-      ],
-      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/models/neighborhood.rb": [
-        1,
-        1,
-        1,
-        null,
-        1,
-        null
-      ],
-      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/models/service_area.rb": [
-        1,
-        1,
-        1,
-        null,
-        1,
-        null
-      ],
       "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/controllers/groupreps_controller.rb": [
         0,
         0,
@@ -190,6 +92,49 @@
         0
       ],
       "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/controllers/groups_controller.rb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/controllers/neighborhoods_controller.rb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         0,
         0,
         0,
@@ -233,11 +178,49 @@
         0,
         0
       ],
+      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/helpers/application_helper.rb": [
+        0,
+        0
+      ],
+      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/helpers/events_helper.rb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/helpers/neighborhoods_helper.rb": [
+        0,
+        0
+      ],
       "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/jobs/application_job.rb": [
         0,
         0
       ],
       "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/models/application_record.rb": [
+        0,
+        0,
+        0
+      ],
+      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/models/event.rb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/models/group.rb": [
+        0,
+        0,
+        0,
+        0,
         0,
         0,
         0
@@ -255,8 +238,24 @@
         0,
         0,
         0
+      ],
+      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/models/neighborhood.rb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/models/service_area.rb": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
       ]
     },
-    "timestamp": 1486061656
+    "timestamp": 1486063932
   }
 }

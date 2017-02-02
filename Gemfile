@@ -45,6 +45,7 @@ end
 group :test do
   gem 'cucumber-rails', :require => false
   gem 'simplecov', :require => false
+  gem 'rails-controller-testing'
 end
 
 group :production do
