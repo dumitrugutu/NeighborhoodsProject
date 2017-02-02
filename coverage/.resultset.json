@@ -30,6 +30,7 @@
         null,
         1,
         0,
+        0,
         null,
         null,
         1,
@@ -232,6 +233,15 @@
         0,
         0
       ],
+      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/jobs/application_job.rb": [
+        0,
+        0
+      ],
+      "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/models/application_record.rb": [
+        0,
+        0,
+        0
+      ],
       "/Users/dumitrugutu/Desktop/NeighborhoodsProject/app/models/group_rep.rb": [
         0,
         0,
@@ -247,6 +257,6 @@
         0
       ]
     },
-    "timestamp": 1486056087
+    "timestamp": 1486061656
   }
 }
