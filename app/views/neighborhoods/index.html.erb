@@ -1,14 +1,20 @@
 <div class="container-fluid" id="masterContainer">
   <div id="searchContainer">
     <div class="row">
-      
       <div class="col-sm-8 col-sm-offset-2">
-        <h1 class="text-center">Ready to explore?</h1>
+        <h1 class="text-center">Explore Your Community</h1>
         <%= form_tag search_neighborhoods_path do %>
-          <input id="headerSearchBar" name="query" placeholder="Search neighborhoods" type="text" autocomplete="off">
+          <input id="headerSearchBar" name="query" placeholder="search community or parks" type="text" autocomplete="off">
         <% end %>
+        <!-- <a href="#" id="allCommunitiesAtag">
+          <div class="center-block text-center" id="allCommunitiesBtn">
+              <h5>View All Communities</h5>
+          </div>
+        </a> -->
+        <button class="center-block">
+            <%= link_to "View All Communities", show_all_neighborhoods_path %>
+        </button>
       </div>
-      
     </div>
   </div>
 </div>
