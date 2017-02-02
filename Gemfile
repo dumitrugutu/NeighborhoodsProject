@@ -48,6 +48,7 @@ end
 
 group :production do
   gem 'pg'  # postgresql
+  gem 'rails_12factor' #for heroku deploy 
 end
 
 # Use ActiveModel has_secure_password

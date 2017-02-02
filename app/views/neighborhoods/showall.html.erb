@@ -1,0 +1,11 @@
+<div class="container-fluid" id="errorPage">
+  <div class="neighborhoods_list text-center">
+    <ul>
+      <% @neighborhoods.sort_by{ |m| m.name.downcase }.each do |neighborhood| %>
+        <a href="/neighborhoods/<%= neighborhood.id %>">
+        <li class="neighborhood"><%= neighborhood.name %></li>
+        </a>
+      <% end %>
+    </ul>
+  </div>
+</div> <!--end of container-->
