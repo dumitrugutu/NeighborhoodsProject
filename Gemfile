@@ -30,7 +30,7 @@ end
 group :development, :test do
   gem 'sqlite3'
   gem 'byebug'
-  gem 'database_cleaner', '1.4.1'
+  gem 'database_cleaner'
   gem 'capybara', '2.4.4'
   gem 'launchy'
   gem 'rspec-rails'
