@@ -33,7 +33,7 @@ group :development, :test do
   gem 'capybara', '2.4.4'
   gem 'launchy'
   gem 'rspec-rails'
-  gem "factory_girl_rails", :require => false
+  gem "factory_girl_rails"
   gem 'shoulda', '~> 3.5'
 end
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
@@ -50,7 +50,7 @@ end
 
 group :production do
   gem 'pg'  # postgresql
-  gem 'rails_12factor' #for heroku deploy 
+  gem 'rails_12factor' #for heroku deploy
 end
 
 # Use ActiveModel has_secure_password
