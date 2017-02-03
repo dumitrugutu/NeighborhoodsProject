@@ -32,6 +32,7 @@ group :doc do
 end
 
 group :development, :test do
+  gem 'brakeman'
   gem 'byebug'
   gem 'database_cleaner'
   gem 'capybara', '2.4.4'
