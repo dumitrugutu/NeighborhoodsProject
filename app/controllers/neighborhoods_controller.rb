@@ -32,6 +32,11 @@ class NeighborhoodsController < ApplicationController
     @groups = @neighborhood.groups
   end
 
+  def show_all
+    @neighborhoods = Neighborhood.all
+    render 'showall'
+  end
+
 
   private
 
