@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20160603192528) do
   enable_extension "plpgsql"
 
   create_table "events", force: :cascade do |t|
-    t.integer  "group_reps_id"
+    t.integer  "group_rep_id"
     t.string   "name"
     t.string   "organizer_contact_info"
     t.datetime "event_time"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20160603192528) do
     t.string   "location"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
-    t.index ["group_reps_id"], name: "index_events_on_group_reps_id", using: :btree
+    t.index ["group_rep_id"], name: "index_events_on_group_rep_id", using: :btree
   end
 
   create_table "group_reps", force: :cascade do |t|
@@ -72,6 +72,6 @@ ActiveRecord::Schema.define(version: 20160603192528) do
     t.datetime "updated_at",      null: false
   end
 
-  add_foreign_key "events", "group_reps", column: "group_reps_id"
+  add_foreign_key "events", "group_reps"
   add_foreign_key "group_reps", "groups"
 end
