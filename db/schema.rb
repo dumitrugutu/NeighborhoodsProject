@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -13,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 20160603192528) do
 
-  create_table "events", force: true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "events", force: :cascade do |t|
     t.integer  "group_rep_id"
     t.string   "name"
     t.string   "organizer_contact_info"
@@ -22,11 +24,10 @@ ActiveRecord::Schema.define(version: 20160603192528) do
     t.string   "location"
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
+    t.index ["group_rep_id"], name: "index_events_on_group_rep_id", using: :btree
   end
 
-  add_index "events", ["group_rep_id"], name: "index_events_on_group_rep_id"
-
-  create_table "group_reps", force: true do |t|
+  create_table "group_reps", force: :cascade do |t|
     t.integer  "group_id"
     t.boolean  "admin"
     t.string   "name",                   default: "", null: false
@@ -42,13 +43,12 @@ ActiveRecord::Schema.define(version: 20160603192528) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.index ["email"], name: "index_group_reps_on_email", unique: true, using: :btree
+    t.index ["group_id"], name: "index_group_reps_on_group_id", using: :btree
+    t.index ["reset_password_token"], name: "index_group_reps_on_reset_password_token", unique: true, using: :btree
   end
 
-  add_index "group_reps", ["email"], name: "index_group_reps_on_email", unique: true
-  add_index "group_reps", ["group_id"], name: "index_group_reps_on_group_id"
-  add_index "group_reps", ["reset_password_token"], name: "index_group_reps_on_reset_password_token", unique: true
-
-  create_table "groups", force: true do |t|
+  create_table "groups", force: :cascade do |t|
     t.string   "name"
     t.string   "website"
     t.string   "contact_info"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(version: 20160603192528) do
     t.datetime "updated_at",   null: false
   end
 
-  create_table "neighborhoods", force: true do |t|
+  create_table "neighborhoods", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -65,11 +65,13 @@ ActiveRecord::Schema.define(version: 20160603192528) do
     t.decimal  "lng"
   end
 
-  create_table "service_areas", force: true do |t|
+  create_table "service_areas", force: :cascade do |t|
     t.integer  "neighborhood_id"
     t.integer  "group_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
 
+  add_foreign_key "events", "group_reps"
+  add_foreign_key "group_reps", "groups"
 end
