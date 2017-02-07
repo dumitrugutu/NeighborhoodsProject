@@ -1,11 +1,5 @@
 module EventsHelper
-
   def is_free?
-    if event.is_free
-      p "Event is free"
-    else
-      p "Event is not free"
-    end
+    self.is_free ? "Event is free" : "Event is not free"
   end
-
 end
