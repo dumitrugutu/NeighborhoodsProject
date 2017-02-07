@@ -1,35 +1,35 @@
 <html>
   <head></head>
-  
+
   <body>
     <div id="formContainer">
-      
+
       <h4 id="formHeader">Create a New Event</h4>
-      
+
       <div id="formBody">
         <%= form_for [@group_rep, @event] do |f| %>
           <%= f.label :name %>
           <%= f.text_field :name %> <br><br>
-          
+
           <%= f.label :organizer_contact_info %>
           <%= f.text_field :organizer_contact_info %> <br><br>
-          
+
           <%= f.label :event_time %>
           <%= f.datetime_select :event_time %> <br><br>
-          
+
           <%= f.label :is_free %>
           <%= f.text_field :is_free %> <br><br>
-          
+
           <%= f.label :location %>
           <%= f.text_field :location %> <br><br>
-          
+
           <%= submit_tag('Create Event', :id => "createBtn") %>
         <% end %>
       </div>
-      
+
     </div>
-    
-    
+
+
   </body>
-  
+
 </html>
