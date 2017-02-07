@@ -19,7 +19,7 @@ class NeighborhoodsController < ApplicationController
       render 'error'
     when 1
       @neighborhood = found_neigborhoods[0]
-      render 'show'
+      redirect_to @neighborhood
     when (1..72)
       @neighborhoods = found_neigborhoods
       render 'multiple'
