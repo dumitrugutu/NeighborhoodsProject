@@ -10,17 +10,36 @@ class NeighborhoodsController < ApplicationController
   end
 
   def search
-    @query_string = "%#{params[:query]}%"
-    if Neighborhood.where("name LIKE ?", @query_string).length < 1
+    query_string = "%#{params[:query]}%"
+    found_neigborhoods = Neighborhood.where("name LIKE ?", query_string)
+
+    case found_neigborhoods.length
+    when 0
       @neighborhoods = Neighborhood.all
       render 'error'
-    elsif Neighborhood.where("name LIKE ?", @query_string).length == 1
-      @neighborhood = Neighborhood.where("name LIKE ?", @query_string).take
+    when 1
+      @neighborhood = found_neigborhoods[0]
       render 'show'
-    else
-      @neighborhoods = Neighborhood.where("name LIKE ?", @query_string)
+    when (1..72)
+      @neighborhoods = found_neigborhoods
       render 'multiple'
     end
+
+    # puts "I GOT HERE --------------"
+    # puts @query_string
+    # puts found_neigborhoods
+    # puts "-------------------------"
+    #
+    # if Neighborhood.where("name LIKE ?", @query_string).length < 1
+    #   @neighborhoods = Neighborhood.all
+    #   render 'error'
+    # elsif Neighborhood.where("name LIKE ?", @query_string).length == 1
+    #   @neighborhood = Neighborhood.where("name LIKE ?", @query_string).take
+    #   render 'show'
+    # else
+    #   @neighborhoods = Neighborhood.where("name LIKE ?", @query_string)
+    #   render 'multiple'
+    # end
   end
 
   def about
